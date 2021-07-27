@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+#define ll long long int
+const int N =2e6;
+int h[N];
+using namespace std;
+string helper(string curr, int index, int n)
+{
+    if(index==n)
+    {
+        return curr;
+    }
+    string new_str;
+    int cnt =1;
+    for(int i=1;i<curr.size();i++)
+    {
+        if(curr[i]!=curr[i-1])
+        {
+            new_str.push_back(cnt+'0');
+            new_str.push_back(curr[i-1]);
+            cnt=1;
+        }
+        else 
+        {
+            cnt++;
+        }
+    }
+    new_str.push_back(cnt+'0');
+    new_str.push_back(curr[curr.length()-1]);
+    return helper(new_str,index+1,n);
+}
+string solve(int n)
+{
+    return helper("1",1,n);
+   
+}
+int main()
+{
+int n;
+cin>>n;
+    cout<<solve(n)<<endl;
+
+    return 0;
+}
+TC-O(2^N/2)
+SC-0(N)
