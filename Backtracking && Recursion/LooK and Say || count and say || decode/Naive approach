@@ -1,0 +1,61 @@
+/*
+  PROBLEM
+  The Look-And-Say sequence is a sequence of positive integers. The sequence is as follows:
+1, 11, 21, 1211, 111221, 312211, 13112221,...
+This sequence is constructed in the following way:
+The first number is 1.
+
+This is read as “One 1”. 
+Hence, the second number will be 11.
+
+The second number is read as “Two 1s”. 
+Hence, the third number will be 21.
+
+The third number is read as “One 2, One 1”. 
+Hence, the fourth number will be 1211. And so on.
+
+The fourth term is read as “One 1, One 2, Two 1s”.
+Hence, the fifth term will be 111221. And so on.
+Given an integer N, find the Nth term of the sequence.
+*/
+
+#include<bits/stdc++.h>
+#define ll long long int
+const int N =2e6;
+int h[N];
+using namespace std;
+void solve(int n)
+{
+     string res[n+1];
+     res[1]="1";
+     res[2]="11";
+     for(int i=3;i<=n;i++)
+     {
+         string pre=res[i-1];
+         string temp="";
+         for(int j=0;j<pre.size();j++)
+         {
+             int cnt=1;
+             while(j<pre.size()-1 && pre[j]==pre[j+1])
+             {
+                 cnt++;
+                 j++;
+             }
+             temp+=to_string(cnt)+pre[j];
+         }
+         res[i]=temp;
+     }
+    cout<<res[n]<<endl;
+
+
+}
+int main()
+{
+int n;
+cin>>n;
+    solve(n);
+
+    return 0;
+}
+TC-O(2^N)
+SC-O(N)
