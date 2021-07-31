@@ -1,0 +1,95 @@
+// kruskal ALgorithm 
+// TIME COMPLEXITY -O(E*log(V)) V ---> NO of vertices
+// It starts to build MST from vertex carrying minimum weight
+// It traverses one node only once
+// It works faster on sparse graph
+// It works on disconnected components and graph as well not like prims
+----------------------------------------------------------------------------------------------------
+What is the difference between Dijkstra and Kruskal?
+ANS- Dijkstra is basically calculating shortest distance between two nodes and in the process all the nodes may necessarily not be covered but in Kruskal it covers all the nodes
+     while keeping the edge cost minimum
+-----------------------------------------------------------------------------------------------------------     
+#include<bits/stdc++.h>
+#define vvi vector<vector<int>>
+#define vvc vector<vector<char>> 
+#define ll long long int
+using namespace std;
+class graph
+{
+    public:
+    int src;
+    int dest;
+    int weight;
+};
+bool compare(graph g1, graph g2)
+{
+    return (g1.weight < g2.weight);
+}
+int get_parent(vector<int> parent, int i)
+{
+    if(parent[i]==i)
+       return i;
+    return get_parent(parent,parent[i]);
+}
+graph* kruskal(graph g[], int n, int e)
+{
+    // lets sort it first
+    // min weight first
+    sort(g,g+e,compare);
+    //lets make a parent vector in which parent is itself of its parent now
+    vector<int> parent(n,0);
+    for(int i=0;i<n;i++)
+    {
+        parent[i]=i;
+    }
+    int cnt =0;
+    // lets build a storage space for edge
+    graph *output =new graph[n-1];
+    int count =0;
+    int i=0;
+    while(count <(n-1))
+    {
+        graph currvertex=g[i];
+        int src_parent =get_parent(parent,currvertex.src);
+        int dest_parent =get_parent(parent,currvertex.dest);
+        if(src_parent!=dest_parent)
+        {
+              output[count]=currvertex;
+              count+=1;
+              parent[src_parent]=dest_parent;
+        }
+        i+=1;
+    } 
+
+return output;
+
+
+}
+int main()
+{
+    int n,e;
+    cin>>n>>e;
+    graph *g=new graph[e];
+    for(int i=0;i<e;i++)
+    {
+        int x,y,z;
+        cin>>x>>y>>z;
+        g[i].src=x;
+        g[i].dest=y;
+        g[i].weight=z;
+    }
+     graph *output=kruskal(g,n,e);
+     for(int i=0;i<n-1;i++)
+     {
+         if(output[i].src < output[i].dest)
+         {
+                cout<<output[i].src<<" "<<output[i].dest<<" "<<output[i].weight<<endl;
+         }
+         else 
+         {
+             cout<<output[i].dest<<" "<<output[i].src<<" "<<output[i].weight<<endl;
+         }
+     }
+
+    return 0;
+}
