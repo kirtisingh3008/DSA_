@@ -1,0 +1,46 @@
+ int kadane(int a[], int n)
+    {
+        int min_so_far=a[0];
+        int min_at_end=a[0];
+        for(int i=1;i<n;i++)
+        {
+            min_so_far=min(min_so_far+a[i],a[i]);
+            min_at_end=min(min_at_end,min_so_far);
+        }
+        return min_at_end;
+    }
+    int max_kadane(int a[], int n)
+    {
+        int max_so_far=a[0];
+        int max_at_end=a[0];
+        for(int i=1;i<n;i++)
+        {
+            max_so_far=max(max_so_far+a[i],a[i]);
+            max_at_end=max(max_at_end,max_so_far);
+        }
+        return max_at_end;
+    }
+    int circularSubarraySum(int arr[], int num){
+        
+        // your code here
+        long long int sum=0;
+        if(num==1)
+        {
+           return arr[0];
+        }
+        for(int i=0;i<num;i++)
+        {
+            sum+=arr[i];
+        }
+       //cout<<sum<<endl;
+        long long int ans = kadane(arr,num);
+        //cout<<ans<<endl;
+        long long int ans1=max_kadane(arr,num);
+        //cout<<ans1<<endl;
+       if(ans==sum)
+       {
+           return ans1;
+       }
+       return max(ans1,sum-ans);
+        
+    }
