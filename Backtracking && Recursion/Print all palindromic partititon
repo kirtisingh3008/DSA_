@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+#define ll long long int
+#define maxn 100086
+using namespace std;
+bool pali(string s, int low, int high)
+{
+    
+    while(low<=high)
+    {
+        if(s[low]!=s[high])
+        {
+            return false;
+        }
+        low++;
+        high--;
+    }
+    return true;
+}
+void helper(string &s, vector<string> &a, vector<vector<string>> &b, int index,int n)
+{
+   if(index >=n)
+   {
+       b.push_back(a);
+       return;
+   }
+   for(int i=index;i<n;i++)
+   {
+       if(pali(s,index,i)==true)
+       {
+           a.push_back(s.substr(index,i-index+1));
+           helper(s,a,b,i+1,n);
+           a.pop_back();
+       }
+   }
+}
+vector<vector<string>> solve(string s)
+{
+    int n=s.size();
+    vector<string> a;
+    int index=0;
+    vector<vector<string>> b;
+    helper(s,a,b,index,n);
+    return b;
+
+}
+int main()
+{
+    string s;
+    cin>>s;
+    vector<vector<string>> k=solve(s);
+    for(int i=0;i<k.size();i++)
+    {
+        for(int j=0;j<k[i].size();j++)
+        {
+            cout<<k[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+
+    return 0;
+}
