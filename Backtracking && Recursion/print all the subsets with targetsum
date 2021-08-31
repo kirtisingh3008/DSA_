@@ -12,7 +12,7 @@ void helper(vector<int> &a,vector<int> &answer, vector<vector<int>> &result, int
     for(int i=index;i<n;i++)
     {
         answer.push_back(a[i]);
-        helper(a,answer,result,index+1,n,target);
+        helper(a,answer,result,i+1,n,target);
         answer.pop_back();
     }
 
