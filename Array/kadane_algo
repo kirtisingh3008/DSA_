@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+// kadane algo
+// TC-O(N)
+// SC-O(N)
+int kadane(vector<int> a, int n)
+{
+    int sum_so_far =a[0];
+    int sum_at_end =a[0];
+    for(int i=1;i<n;i++)
+    {
+        sum_so_far = max(a[i], a[i]+sum_so_far);
+         sum_at_end =max(sum_at_end, sum_so_far);
+    }
+    return sum_at_end;
+}
+int main()
+{
+    int n;
+    cin>>n;
+    vector<int> a;
+    for(int i=0;i<n;i++)
+    {
+        int x;
+        cin>>x;
+        a.push_back(x);
+    }
+    cout<<kadane(a,n)<<endl;
+    return 0;
+}
