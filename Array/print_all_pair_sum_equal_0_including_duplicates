@@ -1,0 +1,36 @@
+// reverse k alt nodes
+#include <bits/stdc++.h>
+using namespace std;
+// print all the pair with zero sum or k sum
+void solve(vector<int> a, int n)
+{
+    unordered_map<int,int> mp;
+    for(int i=0;i<n;i++)
+    {
+        int target = 0-a[i];
+        if(mp.find(target)!=mp.end())
+        {
+            int count = mp[target];
+            for(int j=0;j<count;j++)
+            {
+                cout<<a[i] <<" "<<target<<endl;
+            }
+        }
+        mp[a[i]]++;
+    }
+}
+int main()
+{
+    int n;
+    cin>>n;
+    vector<int> a;
+    for(int i=0;i<n;i++)
+    {
+        int x;
+        cin>>x;
+        a.push_back(x);
+    }
+    solve(a,n);
+
+    return 0;
+}
