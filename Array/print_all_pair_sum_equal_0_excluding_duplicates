@@ -1,0 +1,51 @@
+// reverse k alt nodes
+#include <bits/stdc++.h>
+using namespace std;
+// print all the pair with zero sum or k sum
+void solve(vector<int> a, int n)
+{
+    sort(a.begin(),a.end());
+    int low =0;
+    int high =a[n-1];
+    while(low < high)
+    {
+        if(a[low]+a[high]==0)
+        {
+            // removing all duplicates
+            while(low < high && a[low] ==a[low+1])
+            {
+                low++;
+            }
+            while(low < high && a[low]==a[low-1])
+            {
+                low--;
+            }
+            cout<<a[low]<<" "<<a[high]<<endl;
+            low++;
+            high--;
+        }
+        else if(a[low] +a[high] >0)
+        {
+            high--;
+        }
+        else 
+        {
+            low++;
+        }
+    }
+}
+int main()
+{
+    int n;
+    cin>>n;
+    vector<int> a;
+    for(int i=0;i<n;i++)
+    {
+        int x;
+        cin>>x;
+        a.push_back(x);
+    }
+    solve(a,n);
+
+    return 0;
+}
