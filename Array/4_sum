@@ -1,0 +1,79 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<vector<int>> solve(vector<int> a, int k)
+{
+    int n=a.size();
+    vector<vector<int>> ans;
+    if(n<4)
+    {
+        return ans;
+    }
+    sort(a.begin(),a.end());
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            int sum =k-a[i]-a[j];
+            int left =j+1;
+            int right =n-1;
+            while(left < right)
+            {
+                int num = a[left]+a[right];
+                if(num < sum)
+                {
+                    left++;
+                }
+                else if(num > sum)
+                {
+                    right--;
+                }
+                else 
+                {
+                    vector<int> quad(4,0);
+                    quad[0]=a[i];
+                    quad[1]=a[j];
+                    quad[2]=a[left];
+                    quad[3]=a[right];
+                    ans.push_back(quad);
+                    while(left < right && a[left] == quad[2])
+                         left++;
+                    while(left < right && a[right] == quad[3])
+                        right--;
+                }
+            }
+            while(j+1<n && a[j]==a[j+1])
+            {
+                j++;
+            }
+        }
+        while(i+1 < n && a[i] == a[i+1])
+           i++;
+    }
+    return ans;
+}
+int main()
+{
+    int n;
+    cin>>n;
+    vector<int> a;
+    for(int i=0;i<n;i++)
+    {
+        int x;
+        cin>>x;
+        a.push_back(x);
+    }
+    int target;
+    cin>>target;
+    vector<vector<int>> ans =solve(a,target);
+    for(int i=0;i<ans.size();i++)
+    {
+        for(int j=0;j<ans[0].size();j++)
+        {
+            cout<<ans[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    return 0;
+}
+// TC -0(NLOGN)--> for sorting the input array
+// 0(N) first loop 0(N) second loop  + third is binary search two pointer method
