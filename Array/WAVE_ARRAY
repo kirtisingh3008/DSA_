@@ -1,0 +1,73 @@
+Given an array of integers A, sort the array into a wave like array and return it, In other words, arrange the elements into a sequence such that 
+
+a1 >= a2 <= a3 >= a4 <= a5.....
+NOTE : If there are multiple answers possible, return the one that's lexicographically smallest.
+------------------------------------------------------------------------------------------------------------
+Example Input
+Input 1:
+
+A = [1, 2, 3, 4]
+Input 2:
+
+A = [1, 2]
+
+
+Example Output
+Output 1:
+
+[2, 1, 4, 3]
+Output 2:
+
+[2, 1]
+----------------------------------------------------------------------------------------------------------------
+vector<int> Solution::wave(vector<int> &A) {
+    sort(A.begin(),A.end());
+    vector<int> ans;
+    int n=A.size();
+    int left =1;
+    int right =0;
+    int cnt=0;
+    if(n%2==0)
+    {
+    while(cnt<n)
+    {
+        if(cnt%2==0)
+        {
+
+           ans.push_back(A[left]);
+           left+=2;
+
+        }
+        else
+        {
+           ans.push_back(A[right]);
+           right+=2;
+        }
+        cnt++;
+    }
+    }
+    else
+    {
+         while(cnt<n-1)
+    {
+        if(cnt%2==0)
+        {
+
+           ans.push_back(A[left]);
+           left+=2;
+
+        }
+        else
+        {
+           ans.push_back(A[right]);
+           right+=2;
+        }
+        cnt++;
+    }
+    ans.push_back(A[A.size()-1]);
+
+    }
+    return ans;
+}
+TC-0(N)
+SC-0(1) Because the ans vector to be returned is not considered.
