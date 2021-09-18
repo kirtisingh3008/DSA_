@@ -1,1 +1,25 @@
-
+vector<int> Solution::inorderTraversal(TreeNode* A) {
+    vector<int> ans;
+    if(A==NULL)
+    {
+        return ans;
+    }
+    stack<TreeNode*> st;
+    TreeNode *curr =A;
+    while(st.empty()==false || curr!=NULL)
+    {
+      
+        while(curr!=NULL)
+        {
+            st.push(curr);
+            curr=curr->left;
+        }
+        
+              curr =st.top();
+              st.pop();
+              ans.push_back(curr->val);
+              curr=curr->right;
+        
+    }
+    return ans;
+    }
