@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+void lcs (string s, string t)
+{
+    int n=s.size();
+    int m=t.size();
+    int dp[n+1][m+1];
+    //memset(dp,0,sizeof(dp));
+    for(int i=0;i<=n;i++)
+    {
+        for(int j=0;j<=m;j++)
+        {
+            if(i==0 || j==0 )
+            {
+                dp[i][j]=0;
+            }
+            else if(s[i-1]==t[j-1])
+               dp[i][j]=dp[i-1][j-1]+1;
+               else
+               dp[i][j] =max(dp[i-1][j],dp[i][j-1]);
+        }
+    }
+    int output =dp[n][m];
+    int index =output;
+    int j= m;
+    int i=n;
+    char l[output+1];
+    l[output]='\0';
+    while(i>0 && j>0)
+    {
+        if(s[i-1]==t[j-1])
+        {
+            l[index-1]=s[i-1];
+            index--;
+            i--;
+            j--;
+        }
+        else if(dp[i-1][j]>dp[i][j-1])
+        {
+            i--;
+        }
+        else
+        {
+            j--;
+        }
+    }
+    cout<<l<<endl;
+    
+}
+int main()
+{
+    string s;
+    cin>>s;
+    string t;
+    cin>>t;
+    lcs(s,t);
+
+
+
+    return 0;
+}
+//TC-0(N*2)
+//SC-0(N*2) (2-D MATRIX DP)
