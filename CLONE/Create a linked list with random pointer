@@ -1,0 +1,70 @@
+ Node* copyRandomList(Node* head) {
+        Node *original =head;
+        Node *clone =NULL;
+        unordered_map<Node *, Node *> mp;
+        // lets map all the nodes with its dummy node
+        while(original!=NULL)
+        {
+            clone = new Node(original->val);
+            mp[original] =clone;
+            original =original ->next;
+        }
+         // now lets point to random and next pointers with help 
+        // of already stored mapped values 
+        original =head;
+        while(original!=NULL)
+        {
+            clone =mp[original];
+            clone->next = mp[original->next];
+            clone->random =mp[original->random];
+            original=original->next;
+        }
+        return (mp[head]);
+    }
+    // THIS USES SC-0(N) AND TC -0(N)
+    --------------------------------------------------------------------------------------------------------------------------------------------------------------
+    NOW OPTIMIZED APPROACH
+      Node* copyRandomList(Node* head) {
+        // now lets just code it without an extra space
+        // first lets create a clone list
+        Node *itr =head;
+        Node *front=head;
+        while(itr!=NULL)
+        {
+            front =itr->next;
+            Node *copy =new Node(itr->val);
+            itr->next=copy;
+            copy->next=front;
+            itr=front;
+        }
+        // now lets just point all the random nodes for my copy list
+        itr =head;
+        while(itr!=NULL)
+        {
+            if(itr->random!=NULL)
+            {
+                itr->next->random = itr->random->next;
+
+            }
+            itr=itr->next->next;
+        }
+        itr =head;
+        Node *phead=new Node(0);
+        Node *copy =phead;
+        // now lets just get original linked list also and extract my clone also
+
+        while(itr!=NULL)
+        {
+            front = itr->next->next;
+            copy->next=itr->next;
+            // restore the original list
+            itr->next =front;
+            copy =copy ->next;
+            itr=front;
+            
+        }
+        return phead->next;
+    }
+    TC-0(N)
+    SC-0(1)
+    
