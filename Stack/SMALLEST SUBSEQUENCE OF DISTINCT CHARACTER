@@ -1,0 +1,54 @@
+// SMALLEST SUBSEQUENCE OF DISTINCT CHARACTER
+
+
+// ALGORITHM WALK-THROUGH
+REQUIREMENTS
+1. UNIQUE LETTERS
+2. LEXOGRAPHICALLY AS SMALLEST AS POSSIBLE
+// ONE CAN USE HINTS AS WHENEVER UNIQUE KEYWORD IS ENCOUNTERED TRY THINKING OF A VISITED ARRAY 
+//WHEN TALKING ABOUT LARGEST OR SMALLEST WITH LEXOGRAPHICALLY AS KEYWORD TRY THINKING OF STACK
+------------------------------------------------------------------------------------------------
+1. MAKE A VISITED ARRAY MARK ALL THE LETTERS AS FALSE INTIALLY LIKE I HAVENT CONSIDERED ANY OF THEM IN MY ARRAY TILL NOW
+2. MAP TO STORE THE CNT OF ALL THE LETTERS WHICH WILL FURTHER HELP ME IN SLECTION OF LETTERS
+3. NOW I SAY DECREMENT THE CNT OF LETTER PRESENT AT THAT INDEX BECAUSE IT WOULD BE HELPFUL TO KNOW OKAY HOW MANY SAME CHARATERS ARE AVAILABLE AFTER THIS INDEX
+4. IF IT HAS ONLY OCCURED ONCE THAN TAKE IT PUSH IT INTO STACK AND MARK TRUE OR IF THIS LETTER IS THE FIRST LETTER OF STRING SO INTIALLY PUT IT INTO STACK
+5. NOW IF YOU ENCOUNTER A LETTER WHICH IS LEXOGRAPHICALLY SMALLER THAN THE LETTER MOST RECENT INSERTED LETTER IN THE SATCK THAN POP THAT LETTER AND MARK IT AS NOT VISITED
+6. DO THIS TILL YOU FIND A SUITABLE POSITION FOR THE CURRENT LETTER AND DO MAKE SURE OF ONE CONDITION LIKE THOUGH IT IS LARGER BUT IT IS UNIQUE THAN WE CANT POP IT BUT 
+    HAVE TO TAKE IT ONLY.
+7. ATLAST POP THE LETTERS OF THE STACK INTO STRING AND REVERSE THE STRING BECAUSE STACK POPS OUT THE LAST INSERTED LETTER FIRST
+8. TC -0(N) 
+  SC -0(26)+0(26)+0(S.SIZE());
+ string removeDuplicateLetters(string s) {
+        int n=s.size();
+        stack<char> st;
+        bool visited[26]={false};
+        int mp[26]={0};
+        string ans;
+        // lets get the cnt of all the characters
+        for(int i=0;i<n;i++)
+        {
+            mp[s[i]-'a']++;
+        }
+        for(int i=0;i<n;i++)
+        {
+            mp[s[i]-'a']--;
+            if(visited[s[i]-'a'])
+                continue;
+            while(st.empty()==false && st.top() > s[i] && mp[st.top()-'a']>0)
+            {
+               // mp[s[i]-'a']--;
+                visited[st.top()-'a']=false;
+                st.pop();
+            }
+            st.push(s[i]);
+            visited[s[i]-'a']=true;
+        }
+        while(st.empty()==false)
+        {
+            ans+=st.top();
+            st.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+        
+    }
