@@ -1,0 +1,42 @@
+#Given a string A denoting a stream of lowercase alphabets. You have to make new string B.
+B is formed such that we have to find first non-repeating character each time a character
+is inserted to the stream and append it at the end to B. If no non-repeating character is found then append '#' at the end of B.
+  // my requirement is to find a first non repeating character in a stream 
+  // so there can be letters incomin right
+  // i can assume that the first char will always be my ans
+  // first non repeating
+// get the hint as queue is the data structure which can be used to pop the 
+// eleemnts out from the order (FIFO)
+// and whenever its asked something realted to count of frequency make freq array
+TC-0(N)
+SC-0(N)
+string solve(string a) {
+string ans;
+   if(a.size()==0)
+    {ans='#'; return ans;}
+    int cnt[26]={0};
+    queue<char> q;
+    q.push(a[0]);
+    for(int i=0;a[i];i++)
+    {
+        q.push(a[i]);
+        cnt[a[i]-'a']++;
+        while(q.empty()==false)
+        {
+            if(cnt[q.front()-'a']>1)
+            {
+                q.pop();
+            }
+            else    
+            {
+                ans+=q.front();
+                break;
+            }
+        }
+        if(q.empty())
+        {
+            ans+='#';
+        }
+    }
+    return ans;
+}
