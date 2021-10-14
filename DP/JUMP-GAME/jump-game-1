@@ -1,0 +1,25 @@
+You are given an integer array nums. You are initially positioned at the array's first index, 
+and each element in the array represents your maximum jump length at that position.
+Return true if you can reach the last index, or false otherwise.
+
+TC =O(N)
+SC=O(1)
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int n=nums.size();
+        int pos =0;
+        for(int i=0;i<n-1;i++)
+        {
+            // conditions from where no further movement is possible
+            // not possible t reach end
+            if(pos==i && nums[i]==0)
+                return false;
+            else
+                pos =max(pos,nums[i]+i);
+        }
+        if(pos >=n-1)
+          return true;
+        return false ;
+    }
+};
