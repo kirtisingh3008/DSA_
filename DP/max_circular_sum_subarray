@@ -1,0 +1,56 @@
+class Solution {
+public:
+    // IDEAL APPROACH SHOULD BE
+    // question states that they want maximum sum subarray right
+    // but it is a circular subarray
+    // lets get max sum subarray using kadanes
+    // lets get sum of all elements also for the case where all the elements are positive
+    //and what if there is nbetween subarray which happens to decrease my value in total
+    // so in that case how about i fin the min subarray as well
+    // and check if i subtract that particular subarray from my original sum aray 
+    // than am i getting max or just by the left or right part before and after the subarray
+    // or after the operation 
+    // TC -0(N)  SC -0(1)
+    int min_sum(vector<int>& a, int n)
+    {
+        int min_so_far =a[0];
+        int min_at_end=a[0];
+        for(int i=1;i<n;i++)
+        {
+            min_so_far =min(min_so_far+a[i],a[i]);
+            min_at_end =min(min_so_far,min_at_end);
+        }
+        return min_at_end;
+    }
+      int max_sum(vector<int>& a, int n)
+    {
+        int max_so_far =a[0];
+        int max_at_end=a[0];
+        for(int i=1;i<n;i++)
+        {
+            max_so_far =max(max_so_far+a[i],a[i]);
+            max_at_end =max(max_so_far,max_at_end);
+        }
+        return max_at_end;
+    }
+    int maxSubarraySumCircular(vector<int>& nums) {
+        int n=nums.size();
+        // get the min sum subarray posible
+        int maxi=max_sum(nums,n);
+        int mini =min_sum(nums,n);
+        int sum=0;
+        for(int i=0;i<nums.size();i++)
+            sum+=nums[i];
+        int ans =0;
+        if(mini==sum)
+        {
+            ans =maxi;
+        }
+        else 
+        {
+            ans =max(maxi, sum-mini);
+        }
+        
+        return ans;
+    }
+};
