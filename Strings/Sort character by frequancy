@@ -1,0 +1,49 @@
+Sort Characters By Frequency
+Given a string s, sort it in decreasing order based on the frequency of the characters. The frequency of a character is the number of times it appears in the string.
+
+Return the sorted string. If there are multiple answers, return any of them.
+
+Input: s = "tree"
+Output: "eert"
+Explanation: 'e' appears twice while 'r' and 't' both appear once.
+So 'e' must appear before both 'r' and 't'. Therefore "eetr" is also a valid answer.
+
+Input: s = "cccaaa"
+Output: "aaaccc"
+Explanation: Both 'c' and 'a' appear three times, so both "cccaaa" and "aaaccc" are valid answers.
+Note that "cacaca" is incorrect, as the same characters must be together.
+
+class Solution {
+public:
+    static bool compare(pair<char,int> a, pair<char,int> b)
+    {
+        return a.second>=b.second;
+    }
+    string frequencySort(string s) {
+      map<char,int> mp;
+        for(int i=0;i<s.size();i++)
+        {
+            mp[s[i]]++;
+        }
+        string ans;
+        vector<pair<char,int>> k;
+        for(auto x:mp)
+        {
+            if(x.second>=1)
+            {
+                k.push_back(make_pair(x.first,x.second));
+            }
+        }
+        sort(k.begin(),k.end(),compare);
+        for(int i=0;i<k.size();i++)
+        {
+            for(int j=0;j<k[i].second;j++)
+            ans+=k[i].first;
+        }
+        
+        return ans;
+    }
+};
+
+// TC -0(N)+0(NLOGN) == 0(NLOGN)
+// SC 0(N)--> MAP + O(N)--> VECTOR == O(N)
