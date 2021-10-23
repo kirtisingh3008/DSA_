@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+#define ll long long int
+#define MOD 1000000007;
+using namespace std;
+#include <iostream>
+using namespace std;
+// O(N*2) APPROACH
+ ll solve(ll a[], ll n)
+ {
+     ll sum=0;
+     vector<vector<int>> res;
+    
+     for(int i=0;i<n;i++)
+     {
+         ll temp=0;
+          vector<int> ans;
+         for(int j=i;j<n;j++)
+         {
+             //ans.push_back(a[j]);
+             //res.push_back(ans);
+             temp +=a[j];
+             sum+=temp;
+         }
+         
+     }
+     /*
+     for(int i=0;i<res.size();i++)
+     {
+         for(int j=0;j<res[i].size();j++)
+         cout<< res[i][j]<<" ";
+         cout<<endl;
+     }
+     */
+     return sum;
+ }
+ // 0(N) TC
+ ll solve1(ll a[], ll n)
+ {
+     ll sum=0;
+     for(int i=0;i<n;i++)
+     {
+         sum+=a[i]*(i+1)*(n-i);
+     }
+     return sum;
+ }
+int main()
+{
+    ll n;
+    cin>>n;
+    ll a[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+     cout<<solve(a,n)<<endl;
+     cout<<solve1(a,n)<<endl;
+    return 0;
+}
