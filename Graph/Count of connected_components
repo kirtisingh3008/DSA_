@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+// cnt of connected components
+void dfs_helper(vector<int> adj[],vector<bool> &visited,int node)
+{
+  visited[node]=true;
+    vector<int>::iterator it;
+  for(it=adj[node].begin();it!= adj[node].end();it++)
+  {
+    if(visited[*it]==false)
+     dfs_helper(adj,visited,*it);
+  }
+  
+}
+int solve(vector<int> adj[], int n)
+{
+  vector<bool> visited(n,false);
+  int cnt=0;
+  for(int it=0;it<n;it++)
+  {
+    if(visited[it]==true)
+      continue;
+    
+    dfs_helper(adj,visited,it);
+    cnt++;
+  }
+  return cnt;
+}
+int main()
+{
+  //write your code here
+  int t;
+  cin>>t;
+  while(t--)
+  {
+    int n,e;
+   cin>>n>>e;
+   vector<int> adj[n];
+   for(int i=0;i<e;i++)
+   {
+     int x,y;
+     cin>>x>>y;
+     adj[x].push_back(y);
+     adj[y].push_back(x);
+   }
+   cout<<solve(adj,n)<<endl;
+  }
+  
+  return 0;
+}
