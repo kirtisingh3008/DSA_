@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<char> keypad[10] =
+    {
+        {}, {},        // 0 and 1 digit don't have any characters associated
+        { 'a', 'b', 'c' },
+        { 'd', 'e', 'f' },
+        { 'g', 'h', 'i' },
+        { 'j', 'k', 'l' },
+        { 'm', 'n', 'o' },
+        { 'p', 'q', 'r', 's'},
+        { 't', 'u', 'v' },
+        { 'w', 'x', 'y', 'z'}
+    };
+    vector<string> ans;
+    void helper(string digits, int n)
+    {
+       queue<string> q;
+        q.push("");
+        while(q.empty()==false)
+        {
+            auto x =q.front();
+            q.pop();
+            // base case
+            if(x.size()==n)
+            {
+                ans.push_back(x);
+            }
+            else 
+            {
+                int digit = int(digits[x.size()]-'0');
+                for(auto letter: keypad[digit])
+                {
+                    q.push(x+letter);
+                }
+            }
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        // base case
+        // if the string is empty
+        
+        int n =digits.size();
+        if(n==0)
+            return ans;
+        // input string , curr_string which is empty , index from which we start
+        // and length of the string
+        helper(digits,n);
+        return ans;
+    }
+};
