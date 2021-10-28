@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+using namespace std;
+pair<int,int> bfs(vector<int> graph[], int n, int src)
+{
+  int dis[n];
+  memset(dis,-1,sizeof(dis));
+  queue<int> q;
+  q.push(src);
+  while(q.empty()==false)
+  {
+    auto x =q.front();
+    q.pop();
+    // now all its neighbouring elements of x
+    for(auto i=graph[x].begin();i<graph[x].end();i++)
+    {
+      int v =*i;
+      // not yet considered 
+      if(dis[v]==-1)
+      {
+        q.push(v);
+        dis[v]=dis[x]+1;
+      }
+    }
+  }
+  int maxi =0;
+  int nodeIdx;
+  for(int i=0;i<n;i++)
+  {
+    if(dis[i]>maxi)
+    {
+      maxi =dis[i];
+      nodeIdx=i;
+    }
+  }
+  return make_pair(nodeIdx,maxi);
+}
+int solve(vector<int> graph[], int n, int m)
+{
+  pair<int,int> t1,t2;
+  t1 =bfs(graph,n,0);
+  t2 = bfs(graph,n,t1.first);
+  return t2.second;
+}
+int main()
+{
+  //write your code here
+  int t;
+  cin>>t;
+  while(t--)
+  {
+    int n,m;
+    cin>>n>>m;
+    vector<int> graph[n];
+    for(int i=0;i<m;i++)
+    {
+      int x,y;
+      cin>>x>>y;
+      graph[x].push_back(y);
+      graph[y].push_back(x);
+    }
+    cout<<solve(graph,n,m)+1<<endl;
+  }
+  
+  return 0;
+}
