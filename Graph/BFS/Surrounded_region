@@ -1,0 +1,99 @@
+LINK -https://leetcode.com/problems/surrounded-regions/
+class Solution {
+public:
+    int dt[5] ={1,0,-1,0,1};
+    void bfs(vector<vector<char>> &board, int x,int y)
+    {
+        int n=board.size();
+        int m=board[0].size();
+        queue<pair<int,int>> q;
+        q.push(make_pair(x,y));
+        while(q.empty()==false)
+        {
+            pair<int,int> node = q.front();
+            q.pop();
+            int i = node.first;
+            int j = node.second;
+            board[i][j]='1'; // marking the current O as 1
+            for(int k=0;k<4;k++)
+            {
+                int dx = i+dt[k];
+                int dy =j+dt[k+1];
+                if(dx <0 || dy < 0 || dx >=n || dy>=m || board[dx][dy]!='O')
+                continue;
+             if(board[dx][dy]=='O')
+             {
+                 board[dx][dy]='1';
+                q.push({dx,dy});
+               
+             }
+            }
+        }
+    }
+    void solve(vector<vector<char>>& board) {
+        // step -1 lets convert the all the boundary 0 to 1
+        int no_of_row=board.size();
+        int no_of_column =board[0].size();
+        // first row
+        for(int i=0;i<no_of_column;i++)
+        {
+            if(board[0][i]=='O')
+            {
+                bfs(board,0,i);
+            }
+           
+        }
+         // first column
+          for(int i=0;i<no_of_row;i++)
+        {
+            if(board[i][0]=='O')
+            {
+                bfs(board,i,0);
+            }
+           
+        }
+        //last row
+                for(int i=0;i<no_of_column;i++)
+        {
+            if(board[no_of_row-1][i]=='O')
+            {
+                bfs(board,no_of_row-1,i);
+            }
+        }
+        // last column
+            for(int i=0;i<no_of_row;i++)
+        {
+            if(board[i][no_of_column-1]=='O')
+            {
+                bfs(board,i,no_of_column-1);
+            }
+           
+        }
+        // now lets change all zero O to X
+        for(int i=0;i<no_of_row;i++)
+        {
+            for(int j=0;j<no_of_column;j++)
+            {
+                if(board[i][j]=='O')
+                {
+                    board[i][j]='X';
+                }
+            }
+        }
+        // now lets change all 1 to O
+
+         for(int i=0;i<no_of_row;i++)
+        {
+            for(int j=0;j<no_of_column;j++)
+            {
+                if(board[i][j]=='1')
+                {
+                    board[i][j]='O';
+                }
+            }
+        }
+        
+    }
+};
+TC - O(N*M)*2 // beacause we are traversing the grid 2 times
+SC -> O(maximum number of elements preset at a time) // 4 --> for bfs queue.
