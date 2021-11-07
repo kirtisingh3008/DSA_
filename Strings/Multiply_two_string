@@ -1,0 +1,55 @@
+LINK -https://leetcode.com/problems/multiply-strings/
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        string ans;
+        int n =num1.size();
+        int m =num2.size();
+        // base case
+        if(n==0 || m==0)
+        {
+            return "0";
+        }
+        // i need a vector array to store it
+        vector<int> a(n+m,0);
+        int index1=0;
+        int index2=0;
+        reverse(num1.begin(),num1.end());
+        reverse(num2.begin(),num2.end());
+        for(int i=0;i<n;i++)
+        {
+            int carry =0;
+            int n1 =num1[i]-'0';
+            index2=0;
+            for(int j=0;j<m;j++)
+            {
+                int n2 =num2[j]-'0';
+                int sum = n1*n2 + a[index2+index1]+ carry;
+                carry =sum/10;
+                a[index1+index2] =sum%10;
+                index2++;
+            }
+            if(carry >0)
+            {
+                a[index1+index2] += carry;
+            }
+            index1++;
+        }
+        int i =a.size()-1;
+        // removing the zeros from end
+        while(i>=0 && a[i]==0)
+        {
+            i--;
+        }
+        if(i==-1)
+        {
+            return "0";
+        }
+        while(i>=0)
+        {
+            ans +=to_string(a[i--]);
+        }
+        
+        return ans;
+    }
+};
