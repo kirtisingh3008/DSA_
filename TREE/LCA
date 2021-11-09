@@ -1,0 +1,67 @@
+LINK -https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool find_path(TreeNode * root , TreeNode *node, vector<int> &a)
+    {
+        if(root==NULL)
+            return false;
+        a.push_back(root->val);
+        if(root->val ==node->val)
+        {
+            return true;
+        }
+        if(find_path(root->left,node, a) || find_path(root->right,node,a))
+               return true;
+        a.pop_back();
+        return false;
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        vector<int> a;
+        vector<int> b;
+
+        TreeNode *kirti;
+        find_path(root,p,a);  
+        a.push_back(p->val);
+        find_path(root,q,b);
+        b.push_back(q->val);
+       int i=0, j=0;
+        int n =a.size();
+        int m =b.size();
+       /* for(int i=0;i<n;i++)
+        {
+            cout<<a[i]<<" ";
+        }
+        cout<<endl;
+        for(int i=0;i<m;i++)
+        {
+            cout<<b[i]<<" ";
+        }
+        cout<<endl;
+        */
+
+        while(i<n && j<m)
+         {
+            if(a[i]!=b[j])
+            {
+                root->val = a[i-1];
+                break;
+            }
+            i++;
+            j++;
+         }
+        return root;
+        
+    }
+};
+TC - 0(N)  In traversal the total number of nodes in the binary tree.
+SC -0(N)   Total number of nodes in the binary Tree, in the worst case we will store all the path from root to node And 
+we will have all the nodes of the Binary Tree in the recursion stack O(N)
