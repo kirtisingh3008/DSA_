@@ -1,8 +1,6 @@
 Given a positive integer n and a string s consisting only of letters D or I, you have to find any permutation of first n positive integer that satisfy the given input string.
 D means the next number is smaller, while I means the next number is greater.
-
 Input 1:
-
 n = 3
 
 s = ID
@@ -37,4 +35,4 @@ vector<int> Solution::findPerm(const string A, int B) {
     return ans;
 }
 TC-0(N)
-SC-0(N)
+SC-0(1) 
