@@ -1,0 +1,38 @@
+LINK - https://leetcode.com/problems/letter-case-permutation/
+
+class Solution {
+public:
+    vector<string> ans;
+    void helper(string s, string &temp, int index, int n)
+    {
+        if(index==n)
+        {
+            ans.push_back(temp);
+            return;
+        }
+        // if an alpahbet than i have two choices upper case
+        // lower case
+        if(isalpha(s[index]))
+        {
+            temp+=toupper(s[index]);
+            helper(s,temp,index+1,n);
+            temp.pop_back();
+            
+            temp+=tolower(s[index]);
+            helper(s,temp,index+1,n);
+            temp.pop_back();
+        }
+        else 
+        {
+            temp+=s[index];
+            helper(s,temp,index+1,n);
+            temp.pop_back();
+        }
+    }
+    vector<string> letterCasePermutation(string s) {
+        int n=s.size();
+        string temp="";
+        helper(s,temp, 0, n);
+        return ans;
+    }
+};
