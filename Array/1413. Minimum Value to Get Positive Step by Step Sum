@@ -1,0 +1,31 @@
+LINK - https://leetcode.com/problems/minimum-value-to-get-positive-step-by-step-sum/
+class Solution {
+public:
+    int minStartValue(vector<int>& a) {
+        int n=a.size();
+        int mini =999;
+        int prev =a[0];
+        for(int i=1;i<n;i++)
+        {
+            if(prev < mini)
+            {
+                mini =prev;
+            }
+            
+            prev =prev+a[i];
+
+        }
+         if(prev < mini)
+            {
+                mini =prev;
+            }
+        if(mini < 0)
+        {
+            return abs(mini)+1;
+        }
+        return 1;
+        
+    }
+};
+TC -0(N)
+SC-0(1)
