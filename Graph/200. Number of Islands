@@ -1,0 +1,38 @@
+LINK - https://leetcode.com/problems/number-of-islands/
+class Solution {
+public:
+    int directions[5]={-1,0,1,0,-1};
+    void helper(vector<vector<char>>& grid, int x, int y)
+    {
+        // base condition
+        if(x<0 || y<0 || x>=grid.size() || y>=grid[0].size()|| grid[x][y]!='1')
+        {
+            return;
+        }
+        grid[x][y]='0';
+        for(int i=0;i<4;i++)
+        {
+            int p = x+directions[i];
+            int q = y+directions[i+1];
+            if(p>=0 && q>=0 && p< grid.size() && q< grid[0].size() && grid[p][q]=='1')
+                 helper(grid,p,q);
+        }
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        int n =grid.size();
+        int m=grid[0].size();
+        int count=0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(grid[i][j]=='1')
+                {
+                    helper(grid,i,j);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+};
