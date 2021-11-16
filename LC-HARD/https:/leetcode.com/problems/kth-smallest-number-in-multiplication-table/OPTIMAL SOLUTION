@@ -1,0 +1,48 @@
+class Solution {
+public:
+     //  A better approach which comes to my mind is
+    //  one thing can be seen if we observe closely 
+   // for this particular row
+  // row 1 --> all the elements fetched are incremented by 1
+ // row 2 --> all the elements fetched are incremented by 2
+// row 3 --> all the elements fetched are incremented by 3 (multiples)
+    // an we do know the fact that the tota number of elements be n*m
+    //how about we find a number and lets say get the count of all the number smaller than 
+    // that particular number and check okay these many numbers are smaller than this number
+    // which might offer us two cases 
+    // 1. maybe greater than k 
+    // 2. equal to or less than k where k is the index we want
+    int helper(int row, int col ,int val)
+    {
+        int cnt=0;
+        for(int i=1;i<=row;i++)
+        {
+            cnt += min(col,val/i);
+        }
+        return cnt;
+        
+    }
+    int findKthNumber(int row, int col, int k) {
+        int low =1;
+        int high =row*col+1;
+        while(low<high)
+        {
+            int mid =(low+high)/2;
+            int cnt=0;
+            cnt+=helper(row,col,mid);
+            if(cnt>=k)
+            {
+                high=mid;
+            }
+            else 
+            {
+                low =mid+1;
+            }
+            
+        }
+        return low;
+          
+    }
+};
+TC - 0(M*N LOG (M*N))--> BINARY SEARCH
+SC -0(1)
