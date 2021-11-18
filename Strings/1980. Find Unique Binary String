@@ -1,0 +1,44 @@
+LINK - https://leetcode.com/problems/find-unique-binary-string/
+class Solution {
+public:
+    
+    string findDifferentBinaryString(vector<string>& nums) {
+      int n= nums[0].size();
+        // lets get all the possible binary string of this level 
+        // and we shall put these one into stack 
+        set<string> st;
+        for(auto x:nums)
+        {
+            st.insert(x);
+        }
+        queue<string> q;
+        q.push("1");
+        q.push("0");
+        while(q.empty()==false)
+        {
+            string k = q.front();
+            q.pop();
+            if(k.size()==n)
+            {
+                if(st.find(k)==st.end())
+                {
+                    return k;
+                }
+            }
+            q.push(k+'1');
+            q.push(k+'0');
+        }
+        return nums[0];
+        
+        
+        
+    }
+};
+
+
+// ITERATIVE APPROCH BUT THE TC AND SC WAS BAD  THE CONSTRAINTS WERE SMALL SO WORKED
+// OTHERWISE FOR BETTER TC AND SC 
+string ans="";
+	int i=0;
+	for(auto it:nums) ans+=it[i++]=='1'?'0':'1';
+	return ans;
