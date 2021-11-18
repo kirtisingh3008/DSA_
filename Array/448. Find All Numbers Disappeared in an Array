@@ -1,0 +1,44 @@
+LINK - https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
+class Solution {
+public:
+    // with using extra storage
+    void swap(vector<int> &nums,int x, int y)
+    {
+        int temp = nums[x];
+        nums[x] = nums[y];
+        nums[y]=temp;
+    }
+    // without using extra storage
+    void swap1(vector<int> &nums, int x, int y)
+    {
+        nums[x]=nums[x]+nums[y];
+        nums[y]=nums[y]-nums[x];
+        nums[x]=nums[x]-nums[y];
+    }
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        int n=nums.size();
+        vector<int> ans;
+        int i=0;
+        while(i<n)
+        {
+            int index = nums[i]-1;
+            if(nums[i]!=nums[index])
+            {
+                swap(nums,i,index);
+            }
+            else 
+                i++;
+        }
+        for(int i=0;i<n;i++)
+        {
+         if(nums[i]!=i+1)
+         {
+             ans.push_back(i+1);
+         }
+        }
+        
+        return ans;
+    }
+};
+TC - 0(N)
+SC - 0(1)
