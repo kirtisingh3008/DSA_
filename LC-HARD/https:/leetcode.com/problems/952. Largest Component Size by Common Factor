@@ -1,0 +1,70 @@
+LINK - https://leetcode.com/problems/largest-component-size-by-common-factor/
+class Solution {
+public:
+    class DSU
+    {
+        public:
+        vector<int> parent;
+        vector<int> size;
+        DSU(int n) :  parent(n),size(n,1)
+        {
+            // intializing each nodes parent to be itself
+            iota(parent.begin(),parent.end(),0);   
+        }
+        int find(int x)
+        {
+            if(parent[x]==x)
+            {
+                return x;
+            }
+            return parent[x]=find(parent[x]);
+        }
+        bool union_it(int x, int y)
+        {
+            int parent_of_x = find(x);
+            int parent_of_y =find(y);
+            if(parent_of_x == parent_of_y)
+                return false;
+            if(size[parent_of_x] > size[parent_of_y])
+            {
+                parent[parent_of_x] = parent[parent_of_y];
+                size[parent_of_x] += size[parent_of_y];
+            }
+            else 
+            {
+                parent[parent_of_y] = parent[parent_of_x];
+                size[parent_of_y] += size[parent_of_x];
+            }
+            return true;
+        }
+        
+    };
+    int largestComponentSize(vector<int>& nums) {
+    int n=nums.size();
+        int largest=1;
+        DSU cs(*max_element(nums.begin(),nums.end())+1);
+        unordered_map<int,int> mp;
+        for(auto x: nums)
+        {
+            for(int i=2;i<=sqrt(x);i++)
+            {
+                if(x%i==0)
+                {
+                    cs.union_it(x,i);    // make a part of same group of number and its fac
+                    cs.union_it(x,x/i);
+                }
+            }
+        }
+        // now task is to find largest group 
+        for(int i=0;i<n;i++)
+        {
+            largest = max(largest , ++mp[cs.find(nums[i])]);
+        }
+        return largest;
+        
+        
+        
+    }
+};
+TC - 0 (N * SQRT(M)) where n is the number of nodes in graph and m is the maximum element in nums.
+SC - 0(N)
