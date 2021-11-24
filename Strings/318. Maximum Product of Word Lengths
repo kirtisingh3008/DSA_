@@ -1,0 +1,48 @@
+LINK - https://leetcode.com/problems/maximum-product-of-word-lengths/
+class Solution {
+public:
+    int max(int x, int y)
+    {
+        if(x >y)
+            return x;
+        return y;
+    }
+    int maxProduct(vector<string>& words) {
+     int n =words.size();
+        int answer =0;
+        //basically for each word i should check like if this word is same as another
+        for(int i=0;i<n;i++)
+        {
+            map<char,int> mp;
+            string p = words[i];
+            for(auto x: p)
+            {
+                mp[x]++;
+            }
+            for(int j=i+1;j<n;j++)
+            {
+                string r = words[j];
+                //cout<<r<<endl;
+                bool flag =true;
+                for(auto k:r)
+                {
+                    //cout<<k<<endl;
+                    if(mp.find(k)!=mp.end())
+                    {
+                        flag =false;
+                        break;
+                    }
+                }
+                 if(flag==true)
+                {
+                     
+                 answer =max(answer,words[i].length() * words[j].length());
+                }
+                
+            }
+        }
+        return answer;
+    }
+   // TC - 0(N*N)
+   //SC -o(N)
+};
