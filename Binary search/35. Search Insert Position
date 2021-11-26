@@ -1,0 +1,69 @@
+LINK -https://leetcode.com/problems/search-insert-position/
+O (N) APPROACH 
+class Solution {
+public:
+int searchInsert(vector<int>& nums, int target)
+     {
+        int n=nums.size();
+        int ans =0;
+        if(target > nums[n-1])
+        {
+          return n;
+        }
+
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i]==target)
+            {
+                ans =i;
+            }
+            else if(nums[i]< target && nums[i+1]>target)
+            {
+                 ans =i+1;
+            }
+        }
+        return ans;
+    }
+};
+
+0(LOG N)APPROACH
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+     int high =nums.size()-1;
+        int low =0;
+        if(nums[low]>target)
+        {
+            return low;
+        }
+        if(nums[high] < target)
+        {
+            return high+1;
+        }
+        int mid =(low+high)/2;
+        while(low <= high)
+        {
+            mid =(low+high)/2;
+            
+            if(nums[mid]==target)
+            {
+                //cout<<mid<<endl;
+                return mid;
+            }
+            else if(nums[mid] > target)
+            {
+                high =mid-1;
+            }
+            else 
+            {
+             low =mid+1;
+            }
+        }
+        if(target < nums[mid])
+            return mid;
+        else 
+        return mid+1;
+            
+        
+    }
+};
