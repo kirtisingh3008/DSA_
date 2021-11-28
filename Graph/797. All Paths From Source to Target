@@ -1,0 +1,20 @@
+LINK -https://leetcode.com/problems/all-paths-from-source-to-target/
+class Solution {
+public:
+    vector<vector<int>> ans;
+    void solve(vector<vector<int>> &grid, vector<int> path, int start, int end)
+    {
+        path.push_back(start);
+        if(start==end)
+            ans.push_back(path);
+        for(auto x : grid[start])
+            solve(grid,path,x,end);
+        
+    }
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+       vector<int> path;
+        int n=graph.size();
+        solve(graph,path,0,n-1);
+        return ans;
+    }
+};
