@@ -1,0 +1,64 @@
+LINK - https://leetcode.com/problems/stream-of-characters/
+class Trie
+{
+    Trie *chars[26]{};
+    bool endword =false;
+    public:
+    void insert(string &s)
+    {
+        auto curr =this;
+        for(int i=size(s)-1; ~i;i--)
+        {
+            if(!curr->chars[s[i]-'a'])
+            {
+                curr->chars[s[i]-'a']=new Trie();
+            }
+            curr =curr ->chars[s[i]-'a'];
+        }
+        curr->endword=true;
+    }
+    bool search(string &s)
+    {
+        auto curr =this;
+        int n=s.size();
+        for(int i=n-1;~i;i--)
+        {
+            // if it doesnt match
+            if(!curr->chars[s[i]-'a'])
+                return false;
+            curr=curr->chars[s[i]-'a'];
+            // if we found the word
+            if(curr->endword==true)
+                return true;
+        }
+        return false;
+    }
+};
+class StreamChecker {
+    Trie *build =new Trie();
+    string helper="";
+public:
+    
+    StreamChecker(vector<string>& words) {
+           for (auto &w : words)
+           {
+               build->insert(w);
+           }
+    }
+    
+    bool query(char letter) {
+        helper +=letter;
+        return build->search(helper);
+    }
+};
+
+/**
+ * Your StreamChecker object will be instantiated and called as such:
+ * StreamChecker* obj = new StreamChecker(words);
+ * bool param_1 = obj->query(letter);
+ */
+ TC - for streamchecker -> O(N*L) --> where N is the number of elements in the words and L is the maximum length of the word
+      for query O(L) --> where L is the Maximum length of the string
+      Thus Overall --> 0(N*L + Q*L)
+ 
+ sc - o(N*L+Q)
