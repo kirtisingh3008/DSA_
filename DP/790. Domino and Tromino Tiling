@@ -1,0 +1,39 @@
+LINK -https://leetcode.com/problems/domino-and-tromino-tiling/
+
+class Solution {
+public:
+    const int MOD = 1e9+7;
+    long long int dp[1001][2]{};
+    long long int helper(int col, int size, bool prev_gap)
+    {
+        // terminating condition
+        if(col > size)
+            return 0;
+        
+        if(col == size)
+            return !prev_gap;
+        // if already calculated
+        if(dp[col][prev_gap])
+        {
+            return dp[col][prev_gap];
+        }
+        // if prev gap is empty we have two choice to fill it or not 
+        if(prev_gap)
+            return dp[col][prev_gap] = (helper(col+1,size,false) + helper(col+1,size,true))%MOD;
+        // 1. where you put it verticle than only one coloumn is occupied and nospace left              //in prev
+        // 2. where you put it horizantaly than 2 col are used no space left in prev
+        // because the below of it will be horizantle that is also 1 combination
+        // 3 . in trimino three cells are used leaving one free cell and with 
+        // any possible combination 2 combination are formed by rotating it up down.
+        return dp[col][prev_gap] = (helper(col+1,size,false) + 
+                                  helper(col+2,size,false) +
+                                  2*helper(col+2,size,true))%MOD;
+        
+        
+    }
+    int numTilings(int n) {
+        return helper(0,n,false);
+        
+        
+    }
+};
