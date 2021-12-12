@@ -1,0 +1,29 @@
+LINK - https://leetcode.com/problems/sum-of-subarray-ranges/
+
+class Solution {
+public:
+    long long subArrayRanges(vector<int>& nums) {
+        long long int ans =0;
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+        {
+            int maxi =INT_MIN;
+            int mini=INT_MAX;
+            for(int j=i;j<n;j++)
+            {
+                if(maxi < nums[j])
+                {
+                    maxi =nums[j];
+                }
+                if(mini > nums[j])
+                {
+                   mini =nums[j];
+                }
+                ans += maxi-mini;
+            }
+           // cout<<maxi<<" "<<mini<<endl;
+            
+        }
+        return ans;
+    }
+};
