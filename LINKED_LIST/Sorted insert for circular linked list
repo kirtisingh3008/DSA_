@@ -1,0 +1,56 @@
+LINK - https://practice.geeksforgeeks.org/problems/sorted-insert-for-circular-linked-list/1#
+
+class Solution
+{
+    public:
+    Node *sortedInsert(Node* head, int data)
+    {
+      // Let's create a single node with value data in it
+      Node *insert = new Node(data);
+      // case -1 empty 
+      if(head==NULL)
+      return insert;
+      // case -2 if you have to insert it in front
+      if(head->data>=data)
+      {
+          // hey dont forget it is a circular linked list and in this
+          // the last node points to the first one
+          Node *temp =head;
+          // traversing to the last node
+          while(temp->next!=head)
+          {
+              temp=temp->next;
+          }
+          // ponting the next of last element to the first of it 
+          temp->next=insert;
+          insert->next =head;
+          head= insert;
+          return head;
+      }
+      // Now for the case where it is before and after
+      Node *before =head, *after =head;
+      bool found = false;
+      while(after->next!=head)
+      {
+          if(after->data>=data)
+          {
+              found=true;
+              break;
+          }
+          before =after;
+          after =after ->next;
+      }
+      //not found than insert at last
+      if(found==false)
+      {
+          after->next = insert;
+          insert->next =head;
+      }
+      else 
+      {
+          before->next = insert;
+          insert->next =after;
+      }
+      return head;
+    }
+};
