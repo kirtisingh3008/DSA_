@@ -1,0 +1,37 @@
+LINK - https://leetcode.com/problems/insertion-sort-list/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    void solve(ListNode *head, ListNode *node)
+    {
+        // comming to a node where i find prev number > newnumber
+        while(head->next!=NULL && head->next->val < node->val)
+        {
+            head=head->next;
+        }
+        // after that swapping step
+        node ->next = head->next;
+        head->next=node;
+    }
+    ListNode* insertionSortList(ListNode* head) {
+     // Let's create a soreted list where the intial node is 0;
+        ListNode *sorted_list = new ListNode(0);
+        while(head !=NULL)
+        {
+            ListNode *node =head;
+            head= head->next;
+            solve(sorted_list,node);
+        }
+        return sorted_list->next;
+    }
+    
+};
