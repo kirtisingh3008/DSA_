@@ -1,0 +1,53 @@
+LINK - https://www.codingninjas.com/codestudio/problems/delete-leaf-nodes-with-value-x_630465?topList=top-trees-interview-questions&leftPanelTab=0
+
+
+/************************************************************
+  
+    Following is the Binary Tree node structure:
+    
+    class BinaryTreeNode {
+        public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+        
+        ~BinaryTreeNode() {
+            if(left) 
+                delete left;
+            if(right) 
+                delete right;
+        }
+    };
+
+    
+************************************************************/
+
+BinaryTreeNode<int>* deleteLeafNodes(BinaryTreeNode<int> *root, int x)
+{
+    //Write your code here
+    // this is base case
+    if(root==NULL)
+       return NULL;
+    root->left=deleteLeafNodes(root->left,x);
+    root->right=deleteLeafNodes(root->right,x);
+    if(root->left==NULL && root->right==NULL)
+    {
+        if(root->data==x)
+        {
+           delete root;
+            return NULL;
+        }
+    }
+    
+    
+    return root;
+}
+TC - O(N)--> One thing to note is we are going to the deapth f the tree to check if leaf node have value x or not and if so then delte it
+and check again if after deletion the new leaf nodes have value x or not if they do then do and do it recursively.
+sc - 0(1) --> because we are not using any extra space.
