@@ -1,0 +1,45 @@
+LINK - https://www.codingninjas.com/codestudio/problems/hey_873145?topList=top-trees-interview-questions&leftPanelTab=0
+
+/********************************************************* 
+
+	Binary tree node class for reference:
+	
+	class TreeNode {
+		int val;
+		TreeNode left;
+		TreeNode right;
+
+		TreeNode(int val) {
+			this.val = val;
+			this.left = null;
+			this.right = null;
+		}
+	}
+
+********************************************************/
+#include<bits/stdc++.h>
+int maxLevelSum(TreeNode<int>* root){
+	// Write your code here.
+        if(root==NULL)
+        return 0;
+    queue<TreeNode<int>*> q;
+    q.push(root);
+    int maxi =INT_MIN;
+    while(q.empty()==false)
+    {
+        int n=q.size();
+        int sum=0;
+        for(int i=0;i<n;i++)
+        {
+            TreeNode<int>* node =q.front();
+            q.pop();
+            sum+=node->val;
+            if(node->left!=NULL)
+                q.push(node->left);
+            if(node->right!=NULL)
+                q.push(node->right);
+        }
+        maxi =max(maxi,sum);
+    }
+    return maxi;
+}
