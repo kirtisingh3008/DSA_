@@ -1,0 +1,58 @@
+LINK - https://www.codingninjas.com/codestudio/problems/reverse-level-order-traversal_764339?topList=top-trees-interview-questions&leftPanelTab=0
+
+
+/************************************************************
+
+    Following is the TreeNode class structure:
+
+    template <typename T>
+
+    class TreeNode {
+    public:
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+        TreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+#include<bits/stdc++.h>
+vector<int> reverseLevelOrder(TreeNode<int> *root){
+   
+    vector<int> ans;
+    if(root==NULL )
+    {
+        return ans;
+    }
+    if(root->left ==NULL && root->right==NULL)
+    {    ans.push_back(root->val);
+         return ans;
+    }
+    queue<TreeNode<int>*> q;
+    q.push(root);
+    while(q.empty()==false)
+    {
+        int n=q.size();
+        for(int i=0;i<n;i++)
+        {
+              TreeNode<int> *Node =q.front();
+              q.pop();
+            ans.push_back(Node->val);
+            if(Node->left!=NULL)
+            {
+                q.push(Node->left);
+            }
+            if(Node->right!=NULL)
+            {
+                q.push(Node->right);
+            }
+            
+        }
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
