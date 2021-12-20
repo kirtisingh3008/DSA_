@@ -1,0 +1,31 @@
+LINK - https://leetcode.com/problems/minimum-absolute-difference/
+
+class Solution {
+public:
+    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
+     sort(arr.begin(),arr.end());
+      int mini =INT_MAX;   
+        int n=arr.size();
+        for(int i=0;i<n-1;i++)
+        {
+            if(arr[i+1]-arr[i] <mini)
+                mini =arr[i+1]-arr[i];
+        }
+        vector<vector<int>> res;
+        for(int i=0;i<n-1;i++)
+        {
+            vector<int> ans;
+            if(arr[i+1]-arr[i] ==mini)
+            {
+                ans.push_back(arr[i]);
+                ans.push_back(arr[i+1]);
+                
+            }
+            if(ans.size()!=0)
+            res.push_back(ans);
+        }
+        return res;
+    }
+};
+TC - 0(N)
+SC- 0(1)--> the output was required in that format
