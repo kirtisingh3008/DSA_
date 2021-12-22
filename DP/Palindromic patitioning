@@ -1,0 +1,28 @@
+LINK - https://practice.geeksforgeeks.org/problems/palindromic-patitioning4845/1#
+
+class Solution{
+public:
+    int palindromicPartition(string str)
+    {
+        int n =str.size();
+        bool dp[n][n];
+        memset(dp,false,sizeof(dp));
+        int cut[n];
+        for(int end=0;end<n;end++)
+        {
+            int min_cut =end;
+            for(int start=0;start<=end;start++)
+            {
+                if(str[end]==str[start] &&
+                (end-start < 2 || dp[start+1][end-1]))
+                {
+                     dp[start][end]=true;
+                     min_cut =min(min_cut , start==0 ? 0: (cut[start-1]+1));
+                }
+            }
+            cut[end]=min_cut;
+        }
+        return cut[n-1];
+    }
+    TC - 0(N*M)
+    SC - 0(N*M)
