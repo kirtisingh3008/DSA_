@@ -1,0 +1,68 @@
+LINK - https://leetcode.com/problems/reorder-list/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *reverse(ListNode *head)
+    {
+        ListNode *first =head;
+        ListNode *second =NULL;
+        ListNode *third =NULL;
+        while(first!=NULL)
+        {
+            third =second;
+            second= first;
+            first=first->next;
+            second->next=third;
+        }
+        return second;  
+    }
+    void reorderList(ListNode* head) {
+        if(head==NULL)
+            return;
+        if(head->next==NULL)
+            return;
+        // lets find middle value
+        ListNode *slow =head;
+        ListNode *fast =head;
+        ListNode *st = head;
+        while(fast !=NULL && fast->next!=NULL)
+        {
+            st =slow;
+            slow =slow->next;
+            fast =fast->next->next;
+        }
+        st->next=NULL;
+        ListNode *rev = reverse(slow);
+        ListNode *front =head;
+        ListNode *ans =head;
+        while(rev!=NULL && front!=NULL)
+        {
+            ans =front;
+            front =front->next;
+            ans->next = rev;
+            ans =rev;
+            rev=rev->next;
+            ans->next=front;
+        }
+        if(rev!=NULL && front==NULL)
+        {
+            ans->next = rev;
+        }
+        
+    }
+};
+// In here we first got the middle of linked list
+// and we reversed it 
+// after that we performed adding one by ne in new ll 
+TC - O(N)
+SC - 0(1)
