@@ -1,0 +1,35 @@
+LINK - https://leetcode.com/problems/verifying-an-alien-dictionary/
+
+class Solution {
+public:
+    bool isAlienSorted(vector<string>& words, string order) {
+        unordered_map<char,int> mp;
+        // Marked all the index of the order in map
+        for(int i=0;i<order.size();i++)
+             mp[order[i]]=i;
+        // now iterating through all the words in the map
+        for(int i=1;i<words.size();i++)
+        {
+            string word_prev = words[i-1];
+            string word_curr =words[i];
+            // now checking char for the two consecutive string  
+            for(int j=0;j<word_prev.size();j++)
+            {
+                if(j== word_curr.size())
+                   return false;
+                char one = word_prev[j];
+                char two =word_curr[j];
+                // if the first one is greater than second than false
+                if(mp[one] > mp[two])
+                    return false;
+                // save the time break
+                if(mp[one] < mp[two])
+                    break;
+            }
+        }
+        
+        return true;
+    }
+};
+TC - 0(words.size() * lenght of each string)
+SC - O(order.size())--> for map
