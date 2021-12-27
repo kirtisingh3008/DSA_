@@ -1,0 +1,30 @@
+LINK - https://leetcode.com/problems/number-complement/
+
+class Solution {
+public:
+    int findComplement(int num) {
+        string s;
+        while(num!=0)
+        {
+            int x = num%2;
+            //cout<<x<<endl;
+            num=num/2;
+            //cout<<num<<endl;
+            if(x== 1)
+            s+='0';
+            else 
+            s+='1';
+        }
+       
+        int ans =0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='1')
+            ans+=pow(2,i);
+        }
+       return ans; 
+    }
+};
+
+TC - 0(N)
+SC - 0(1)
