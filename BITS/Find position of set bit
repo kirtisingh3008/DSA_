@@ -1,0 +1,67 @@
+LINK - https://practice.geeksforgeeks.org/problems/find-position-of-set-bit3706/1
+
+int solve (int N)
+{
+      // code here
+        int cnt =0;
+        int k=N;
+        string s;
+        while(N!=0)
+        {
+            int x = N%2;
+            N=N/2;
+            if(x==1)
+            {
+                cnt++;
+               s+='1';
+            }
+            else
+            s+='0';
+        }
+        //cout<<s<<endl;
+      //  reverse(s.begin(),s.end());
+        //cout<<s<<endl;
+        int pos =0;
+        if(cnt!=1)
+        return -1;
+         for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='1')
+            {
+                pos=i+1;
+                break;
+            }
+        }
+       // cout<<pos<<endl;
+        return pos;
+    }
+    TC - 0(N)
+    SC - O(1)
+    
+    ---------------------------------------------------------------------------------------------------
+    ANOTHER APPROACH 
+   // only signle set bit set is in the case where the number is power of 2 
+   int solve(int n)
+   {
+      if(n!=0 && !(n&(n-1)))
+         return log2(n)+1;
+     return -1;
+   }
+   TC - O(1);
+   SC -O(1)
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
