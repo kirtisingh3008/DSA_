@@ -1,0 +1,59 @@
+LINK - https://leetcode.com/submissions/detail/498531900/
+
+
+class Solution {
+public:
+bool isValid(string s) {
+        stack<char> st;
+        int n=s.size();
+        char top;
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]=='(' || s[i]=='{' || s[i]=='[')
+            {
+                st.push(s[i]);
+                continue;
+            }
+            if(st.empty()==true)
+            {
+                return false;
+            }
+            switch(s[i])
+            {
+                case '}':
+                          top =st.top();
+                          st.pop();
+                        if(top =='(' || top=='[')
+                        {
+                        return false;
+                        }
+                        break;
+                case ']':
+                            top =st.top();
+                           st.pop();
+                          if(top =='(' || top =='{')
+                          {
+                           return false;
+                          }
+                           break;
+                case ')':
+                          top =st.top();
+                          st.pop();
+                          if(top =='{' || top =='[')
+                         {
+                            return false;
+                         }
+                         break;
+            }
+            }
+        
+        if(st.empty()==true)
+            return true;
+        else
+            return false;
+        
+    }
+};
+
+TC - O(N)
+SC - O(N) in worst case if all the opening brackets are encountered
