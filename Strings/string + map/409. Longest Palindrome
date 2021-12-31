@@ -1,0 +1,43 @@
+LINK - https://leetcode.com/problems/longest-palindrome/
+
+class Solution {
+public:
+    int longestPalindrome(string s) {
+      int n =s.size();
+        int ans =0;
+        map<char, int> mp;
+        for(int i=0;i<n;i++)
+        {
+            mp[s[i]]++;
+        }
+        int only_one_time=0;
+        int odd =0;
+        for(auto x: mp)
+        {
+            cout<<x.first<<" "<<x.second<<endl;
+            if(x.second%2==0)
+            {
+                ans+=x.second;
+            }
+            else if(x.second==1)
+            {
+                only_one_time=1;
+            }
+            else 
+            {
+                odd+=x.second-1;
+            }
+        }
+        if(odd > 1 && only_one_time ==0)
+        {
+            ans+=odd+1;
+        }
+        else 
+        ans+=only_one_time+odd;
+        
+        return ans;
+    }
+};
+
+TC - O(N)
+SC - 0(N) --> for using hash map
