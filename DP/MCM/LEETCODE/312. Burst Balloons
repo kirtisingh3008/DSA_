@@ -1,0 +1,37 @@
+LINK - https://leetcode.com/problems/burst-balloons/
+
+// THE ORDER IN WHICH YOU PERFORM OPERATIONS EFFECT THE MINIMUM OR MAXIMUM VALUE 
+
+class Solution {
+public:
+      int dp[1001][1001];
+    int solve(vector<int>& nums, int i , int j)
+    {
+        if(i==j)
+        return 0;
+        
+        if(dp[i][j]!=-1)
+        {
+            return dp[i][j];
+        }
+        int maxi =INT_MIN;
+        for(int k=i;k<j;k++)
+        {
+            dp[i][j] = max(dp[i][j],solve(nums,i,k)+solve(nums,k+1,j) + 
+                           nums[i-1]*nums[k]*nums[j]);
+            maxi =max(maxi,dp[i][j]);
+        }
+        return maxi;
+    }
+    int maxCoins(vector<int>& nums) {
+       nums.insert(nums.begin(),1);
+        nums.push_back(1);
+        memset(dp,-1,sizeof(dp));
+        int k=nums.size();
+        int ans =solve(nums,1,k-1);
+        return ans;   
+    }
+};
+
+TC - O(N*pow(2,n))
+SC - O(N*N)
