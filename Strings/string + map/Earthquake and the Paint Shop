@@ -1,0 +1,19 @@
+LINK - https://practice.geeksforgeeks.org/problems/earthquake-and-the-paint-shop4518/0/#
+
+    vector<alphanumeric> sortedStrings(int N, vector<string> A) {
+        // code here
+        vector<alphanumeric> ans;
+        map<string , int> mp;
+        for(int i=0;i<N;i++)
+        {
+            string k= A[i];
+                mp[k]++;
+        }
+        for(auto x:mp)
+        {
+            ans.push_back({x.first, x.second});
+        }
+        return ans;
+        
+        TC - O(N)
+        SC - O(N)
