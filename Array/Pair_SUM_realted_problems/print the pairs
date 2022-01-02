@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+// print the pairs 
+vector<vector<int>> solve(vector<int> &a, int n, int sum)
+{
+    vector<vector<int>> ans;
+    unordered_map<int,int> mp;
+    for(int i=0;i<n;i++)
+    {
+        int target = sum-a[i];
+        vector<int> helper;
+        if(mp.find(target)!=mp.end())
+        {
+            helper.push_back(a[i]);
+            helper.push_back(target);
+        }
+        ans.push_back(helper);
+        mp[a[i]]++;
+    }
+
+    return ans;
+}
+
+int main()
+{
+   ll t;
+   cin>>t;
+   while(t--)
+   {
+       int n;
+       cin>>n;
+       vector<int> a;
+       for(int i=0;i<n;i++)
+       {
+           int x;
+           cin>>x;
+           a.push_back(x);
+       }
+       int sum;
+       cin>>sum;
+       vector<vector<int>> result = solve(a, n, sum);
+       for(int i=0;i<result.size();i++)
+       {
+           for(int j=0;j<2;j++)
+           {
+               cout<<result[i][j]<<" ";
+           }
+       }
+    }
+    return 0;
+}
+
+TC - O(N)
+SC - O(N)
