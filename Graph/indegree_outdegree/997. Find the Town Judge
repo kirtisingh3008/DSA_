@@ -1,0 +1,42 @@
+LINK - https://leetcode.com/problems/find-the-town-judge/
+
+class Solution {
+public:
+    int findJudge(int n, vector<vector<int>>& trust) {
+        // one thing to note is judge will be that person whose outdegree is 0
+        // but has indegree of total vertices-1 
+        vector<int> indegree(n+1,0);
+        vector<int> outdegree(n+1,0);
+        vector<vector<int>> graph(n+1);
+        for(int i=0;i<trust.size();i++)
+        {
+            int x = trust[i][0];
+            int y =trust[i][1];
+            graph[x].push_back(y);
+            indegree[y]++;
+            outdegree[x]++;
+        }
+        int in_j=-1;
+        int out_j=-1;
+        for(int i=1;i<=n;i++)
+        {
+            if(indegree[i]==n-1)
+            {
+                in_j = i;
+            }
+            if(outdegree[i]==0)
+            {
+                out_j = i;
+            }
+        }
+        if(in_j == out_j)
+        {
+            return in_j;
+        }
+        return -1;
+        
+    }
+};
+
+TC - O(N+N)
+SC - (N)
