@@ -1,0 +1,36 @@
+LINK - https://leetcode.com/problems/sum-of-all-subset-xor-totals/
+
+class Solution {
+public:
+    int ans =0;
+     vector<vector<int>> result;
+    void solve(vector<int>& nums, vector<int>&ans , int start)
+    {
+        result.push_back(ans);
+        for(int i=start;i<nums.size();i++)
+        {
+            ans.push_back(nums[i]);
+            solve(nums, ans, i+1);
+            ans.pop_back();
+        }
+        return;
+    }
+    int subsetXORSum(vector<int>& nums) {
+        vector<int> ans1;
+       
+        solve(nums,ans1,0);
+      
+        for(int i=0;i<result.size();i++)
+        {
+            int xor1=0;
+              for(int j=0;j<result[i].size();j++)
+              {
+                 xor1 ^=result[i][j];
+              }
+            ans+=xor1;
+        }
+        return ans;
+    }
+};
+
+TC - O(2 ^N)
