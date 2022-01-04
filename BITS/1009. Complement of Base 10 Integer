@@ -1,0 +1,22 @@
+LINK - https://leetcode.com/problems/complement-of-base-10-integer/
+
+class Solution {
+public:
+    int bitwiseComplement(int n) {
+        
+        if(n==0)
+            return 1;
+        // if it's power of 2 then the number-1 
+       if(ceil(log2(n)) == floor(log2(n)))
+           return n-1;
+        return n^ ((int)(pow (2, (int)(log2(n))+1))-1);
+        // HERE WE ARE XORING THE VALUE OF N AND (NEAREST POWER OF 2)-1;
+       // xor property is being used here that is 
+        // 0 ^ 1 =1
+        // 1 ^ 1 = 0
+        // how about i do something like this 101 ^ 111 = 010 THAT IS COMPLEMENT
+    }
+};
+
+Tc - O(log2(N))
+SC - O(1)
