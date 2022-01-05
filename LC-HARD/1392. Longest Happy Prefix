@@ -1,0 +1,53 @@
+LINK - https://leetcode.com/problems/longest-happy-prefix/
+class Solution {
+public:
+    int solve(string s)
+    {
+        int n=s.size();
+        vector<int> lps(n);
+        int i=1;
+        int len =0;
+        while(i<n)
+        {
+            // if same
+            if(s[i]==s[len])
+            {
+                len++;
+                lps[i]=len;
+                i++;
+            }
+            else 
+            {
+                if(len!=0)
+                {
+                    len =lps[len-1];
+                }
+                else 
+                {
+                    lps[i]=0;
+                    i++;
+                }
+            }
+        }
+        int res =lps[n-1];
+         return res;
+    }
+    string longestPrefix(string s) {
+        int n=s.size();
+
+        string ans;
+        if(n<=1)
+        {
+            return ans;
+        }
+        int len =solve(s);
+        for(int i=0;i<len;i++)
+        {
+            ans+=s[i];
+        }
+        return ans;
+    }
+};
+
+TC - 0(N)
+sc - o(N)
