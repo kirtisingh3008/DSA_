@@ -1,0 +1,34 @@
+LINK - https://leetcode.com/problems/palindrome-partitioning-iv/
+
+class Solution {
+public:
+    bool checkPartitioning(string s) {
+        int n=s.size();
+        bool dp[n][n];
+        memset(dp,false, sizeof(dp));
+        // lets make the palindrome array
+        for(int end =0; end <n;end++)
+        {
+            for(int start=0; start<=end;start++)
+            {
+                if(s[end]==s[start] && (end-start < 2 || dp[start+1][end-1]))
+                {
+                    dp[start][end]=true;
+                }
+            }
+        }
+        // now lets try splitng it into three parts
+        for(int start =1;start < n-1;start++)
+        {
+            for(int end =start ;end < n-1;end++)
+            {
+                if(dp[0][start-1]==true && dp[start][end] && dp[end+1][n-1]==true)
+                    return true;
+            }
+        }
+        return false;
+    }
+};
+
+TC - 0(N*N)
+SC - O(N*N)
