@@ -22,3 +22,6 @@ public:
         return count;
     }
 };
+
+TC - O(N)
+SC- O(N) MAP
