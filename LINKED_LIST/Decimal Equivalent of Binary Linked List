@@ -1,0 +1,16 @@
+LINK - https://practice.geeksforgeeks.org/problems/decimal-equivalent-of-binary-linked-list/1/#
+
+long long unsigned int decimalValue(Node *head)
+{
+   // Your Code Here
+   long long unsigned int mod = 1000000007, ans =0;
+   while(head)
+   {
+       ans =((2*ans) + (head->data ? 1 : 0 ))%mod;
+       head= head->next;
+   }
+   return ans;
+}
+
+TC -O(N)
+SC -O(1)
