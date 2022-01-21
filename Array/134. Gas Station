@@ -1,0 +1,28 @@
+LINK -  https://leetcode.com/problems/gas-station/
+
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+       
+          int n =gas.size();
+          int total=0;
+        int sum =0;
+        int ans_index =0;
+          for(int i=0;i<n;i++)
+          {
+              sum += gas[i]-cost[i];
+              if(sum < 0)
+              {
+                  // cout<<sum<<endl;
+                  total+=sum;
+                  sum=0;
+                  ans_index=i+1;
+              }
+          }
+        total+=sum;
+        return (total < 0)? -1 : ans_index;
+    }
+};
+
+TC - O(N)
+SC - O(1)
