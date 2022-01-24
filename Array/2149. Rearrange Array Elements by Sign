@@ -1,0 +1,78 @@
+LINK - https://leetcode.com/contest/weekly-contest-277/problems/rearrange-array-elements-by-sign/
+
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+        vector<int> ans;
+        int n=nums.size();
+        vector<int> pos;
+        vector<int> neg;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums[i]<0)
+                neg.push_back(nums[i]);
+            else
+                pos.push_back(nums[i]);
+        }
+        int cnt =0;
+        bool flag =true;
+        int i_p=0;
+        int i_n=0;
+        while(cnt < nums.size())
+        {
+            if(flag ==true)
+            {
+                ans.push_back(pos[i_p]);
+                i_p++;
+                cnt++;
+                flag =false;
+            }
+            else 
+            {
+               ans.push_back(neg[i_n]);
+                i_n++;
+                cnt++;
+                flag =true;
+            }
+        }
+        
+        return ans;
+    }
+};
+
+
+TC - O(N)
+SC - O(2*N) equals to O(N)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+        
+        int n=nums.size();
+        vector<int> ans(n);
+       
+        for(int i=0, pos=0, neg=1;i<n;i++)
+        {
+            if(nums[i]>0)
+            {
+               ans[pos] =nums[i];
+                pos+=2;
+            }
+            else
+            {
+               ans[neg] =nums[i];
+                neg+=2;
+            }
+        }
+        return ans;
+        
+    }
+};
+
+TC - O(N)   // TWO POINTER
+SC - O(1)
+
+
