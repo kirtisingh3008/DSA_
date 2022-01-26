@@ -1,0 +1,55 @@
+LINK - https://leetcode.com/problems/longest-increasing-subsequence/
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n=nums.size();
+        vector<int> dp(n,1);
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<i;j++)
+            {
+                if( nums[j] < nums[i] && dp[j]+1 > dp[i])
+                {
+                    dp[i]=dp[j]+1;
+                }
+            }
+        }
+        int maxi =0;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(maxi < dp[i])
+                maxi =dp[i];
+        }
+        return maxi;
+        
+    }
+};
+
+TC - O(N*2)
+SC - O(N)
+-----------------------------------------------------------------------------------------------------------------------------------------------
+OPTIMIZING IT TO 0(N*LOGN)
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n=nums.size();
+        vector<int> dp;
+        dp.push_back(nums[0]);
+        for(int i=1;i<nums.size();i++)
+        {
+            if(nums[i] > dp.back())
+            {
+                dp.push_back(nums[i]);
+            }
+            else
+            {
+                int index = lower_bound(dp.begin(),dp.end(),nums[i])-dp.begin();
+                dp[index] = nums[i]; 
+            }
+        }
+        return dp.size();
+    }
+};
+
+SC - O(N)
