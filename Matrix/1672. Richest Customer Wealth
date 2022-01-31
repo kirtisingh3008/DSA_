@@ -1,0 +1,25 @@
+LINK - https://leetcode.com/problems/richest-customer-wealth/
+
+class Solution {
+public:
+    int maximumWealth(vector<vector<int>>& accounts) {
+        int sum =0;
+        int n =accounts.size();
+        int m = accounts[0].size();
+        int maxi =0;
+        for(int i=0;i<n;i++)
+        {
+            sum=0;
+            for(int j=0;j<m;j++)
+            {
+                sum += accounts[i][j];
+            }
+            maxi = max(maxi,sum);
+            
+        }
+        return maxi;
+    }
+};
+
+TC - O (N*M)
+SC - O(1)
