@@ -1,0 +1,39 @@
+LINK - https://leetcode.com/problems/permutation-in-string/
+class Solution {
+public:
+    bool check(char freq[], char freq1[])
+    {
+        for(int i=0;i<256;i++)
+            if(freq[i]!=freq1[i])
+                return false;
+        return true;
+    }
+    bool checkInclusion(string s1, string s2) {
+        int n=s1.size();
+        int m =s2.size();
+        if( n > m)
+        {
+            return false;
+        }
+        char freq[256]={0};
+        char freq1[256]={0};
+        for(int i=0;i<n;i++)
+        {
+            freq[s1[i]]++;
+            freq1[s2[i]]++;
+        }
+        for(int i=n;i<m;i++)
+        {
+            if(check(freq,freq1)==true)
+                return true;
+            freq1[s2[i]]++;
+            freq1[s2[i-n]]--;
+        }
+        if(check(freq,freq1)==true)
+            return true;
+        return false;
+    }
+};
+
+TC - O(M)
+SC - O(256)
