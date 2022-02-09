@@ -1,0 +1,49 @@
+LINK -  https://leetcode.com/problems/k-diff-pairs-in-an-array/
+
+class Solution {
+public:
+    int findPairs(vector<int>& nums, int k) {
+        int left =0;
+        int right =0;
+        int count =0;
+        sort(nums.begin(),nums.end());
+        while(right < nums.size())
+        {
+           while( left +1 < right && nums[left]==nums[left+1])
+           {
+               left++;
+           }
+            while( right+1 < nums.size() && nums[right] == nums[right+1])
+            {
+                right++;
+            }
+            if(left==right)
+            {
+                right++;
+                continue;
+            }
+            int diff = nums[right]-nums[left];
+            if(diff==k)
+            {
+                
+               count++;
+                right++;
+            }
+            else if( diff > k)
+            {
+                left++;
+            }
+            else if( diff < k)
+            {
+                right++;
+            }
+            
+            
+        }
+        return count;
+    }
+};
+
+TC - O(N*LOG*N)
+SC - O(1)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
