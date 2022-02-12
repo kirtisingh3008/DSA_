@@ -1,0 +1,59 @@
+LINK - https://leetcode.com/problems/word-ladder/
+
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+      // one thing from observation is start word and end word 
+        set<string> st;
+        if(beginWord == endWord)
+            return 0;
+        bool end_there =true;
+        for(int i=0;i<wordList.size();i++)
+        {
+            st.insert(wordList[i]);
+            if(!wordList[i].compare(endWord)) // found it toggle it to true
+                 end_there =false;
+        }
+        if(end_there == true)
+        {
+            // cout<<"hello"<<endl;
+            return 0;
+        }
+        queue<string> q;
+        q.push(beginWord);
+        int steps=1;
+        while(q.empty()==false)
+        {
+            int len = q.size();
+            steps++;
+            while(len)
+            {
+                string curr = q.front();
+                q.pop();
+                for(int i=0;i<curr.size();i++)
+                {
+                    string temp = curr;
+                    for(int j='a';j<='z';j++)
+                    {
+                        temp[i] = j;
+                        // cout<<temp<<endl;
+                        if(!curr.compare(temp))
+                        {
+                            continue;
+                        }
+                        if(st.count(temp))
+                        {
+                            q.push(temp);
+                            st.erase(temp);
+                        }
+                        if(!temp.compare(endWord))
+                            return steps;
+                    }
+                }
+                len--;
+            }
+        }
+        return 0;
+    }
+};
+
