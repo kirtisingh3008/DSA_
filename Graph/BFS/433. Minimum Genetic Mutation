@@ -1,0 +1,62 @@
+LINK - https://leetcode.com/problems/minimum-genetic-mutation/
+
+class Solution {
+public:
+    int minMutation(string start, string end, vector<string>& bank) {
+        bool end_there = false;
+        set<string> st;
+        for(int i=0;i<bank.size();i++)
+        {
+            st.insert(bank[i]); // inserting words in set
+            if(!bank[i].compare(end)) // end word is there is bank
+            {
+                end_there = true;
+            }
+        }
+        // if not there than how can i achieve it
+        if(end_there == false)
+            return -1;
+        queue<string> q;
+        q.push(start);
+        vector<char> alpha = {'A','C','G','T'};
+        int steps=0;
+        while( q.empty()==false)
+        {
+            int len = q.size();
+            steps++;
+            while(len!=0)
+            {
+                // there are 8 letters in the word
+                string curr= q.front(); // poping the start string initially
+                q.pop();
+                for(int i=0;i<8;i++)
+                {
+                    string temp = curr;
+                    for(int ch=0;ch<4;ch++)
+                    {
+                        temp[i] = alpha[ch];
+                        if(!curr.compare(temp)) // if same then skip iteration
+                        {
+                          continue;
+                        }
+                        if(st.count(temp))
+                        {
+                            q.push(temp);
+                            st.erase(temp);
+                        }
+                        if(!temp.compare(end))
+                            return steps;   
+                    }       
+                }
+             len--;
+            }
+        }
+        return -1;
+        
+        
+        
+    }
+};
+
+TC - O(8* no of words * 4 )
+SC - O(BANK SIZE) --> SET
