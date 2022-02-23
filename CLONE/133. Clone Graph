@@ -1,0 +1,62 @@
+LINK - https://leetcode.com/problems/clone-graph/
+
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    vector<Node*> neighbors;
+    Node() {
+        val = 0;
+        neighbors = vector<Node*>();
+    }
+    Node(int _val) {
+        val = _val;
+        neighbors = vector<Node*>();
+    }
+    Node(int _val, vector<Node*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
+*/
+
+class Solution {
+public:
+    Node* cloneGraph(Node* node) {
+        if(node==NULL)
+            return node;
+        unordered_map<Node*, Node*> mp;
+        queue<Node*> q;
+        q.push(node);
+        // creating a dummy node
+        Node * clone_graph;
+        clone_graph = new Node();
+        clone_graph->val = node->val;
+        mp[node] = clone_graph;
+        while(q.empty()==false)
+        {
+            Node * curr = q.front();
+            vector<Node*> v =curr-> neighbors;
+            q.pop();
+            int n= v.size();
+            for(int i=0;i<n;i++)
+            {
+              // if the node is note created create and mark it in map
+                if(mp[v[i]]==NULL)
+                {
+                    clone_graph = new Node();
+                    clone_graph->val = v[i]->val;
+                    mp[v[i]] =clone_graph;
+                    q.push(v[i]);
+                }
+                mp[curr]->neighbors.push_back(mp[v[i]]);
+            }
+            
+        }
+        return mp[node];
+    }
+};
+
+TC - O(V+E)
+SC - O(V)
