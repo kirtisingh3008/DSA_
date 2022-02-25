@@ -1,0 +1,38 @@
+LINK - https://leetcode.com/problems/arithmetic-subarrays/
+
+class Solution {
+public:
+    bool checker(vector<int> a)
+    {
+        int n=a.size();
+        int diff = a[1]-a[0];
+        for(int i=2;i<n;i++)
+        {
+            if(a[i] - a[i-1] !=diff )
+                return false;
+        }
+        return true;
+    }
+    vector<bool> checkArithmeticSubarrays(vector<int>& nums, vector<int>& l, vector<int>& r) {
+        vector<bool> ans;
+        for(int i=0;i<l.size();i++)
+        {
+            vector<int> a;
+            for(int j=l[i];j<=r[i];j++)
+            {
+                a.push_back(nums[j]);
+            }
+            sort(a.begin(),a.end());
+            if(checker(a)==true)
+            {
+                ans.push_back(true);
+            }
+            else 
+            {
+                ans.push_back(false);
+            }
+        }
+        
+        return ans;
+    }
+};
