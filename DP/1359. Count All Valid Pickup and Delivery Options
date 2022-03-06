@@ -1,0 +1,30 @@
+LINK - https://leetcode.com/problems/count-all-valid-pickup-and-delivery-options/
+
+class Solution {
+public:
+    int mod = 1e9+7;
+    int dp[501][501];
+    long long int helper(int left_to_Pick , int left_to_Deliver)
+    {
+        if(left_to_Pick==0 && left_to_Deliver==0)
+            return 1;
+        if(left_to_Pick <0 || left_to_Deliver <0)
+        {
+            return 0;
+        }
+        if(dp[left_to_Pick][left_to_Deliver]!=-1)
+        {
+            return dp[left_to_Pick][left_to_Deliver];
+        }
+        long long int ans =0;
+        ans = (ans+left_to_Pick *helper(left_to_Pick-1 , left_to_Deliver+1))% mod;
+        ans = (ans +left_to_Deliver * helper(left_to_Pick, left_to_Deliver-1))% mod;
+        return dp[left_to_Pick][left_to_Deliver]=ans;
+    }
+    int countOrders(int n) {
+        memset(dp,-1,sizeof(dp));
+        return helper(n,0);
+    }
+};
+TC - O(N*N);
+SC - O(N*N);
