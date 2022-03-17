@@ -1,0 +1,43 @@
+LINK - https://leetcode.com/problems/palindromic-substrings/
+
+class Solution {
+public:
+    int countSubstrings(string s) {
+        int n =s.size();
+        int cnt=0;
+        int dp[n][n];
+        memset(dp,false , sizeof(dp));
+        for(int len =0;len < n;len++)
+        {
+            for(int start =0 , end = len ; end < n; start++ , end++)
+            {
+                if(len==0)
+                {
+                    dp[start][end] =true;
+                }
+                else if(len==1)
+                {
+                    dp[start][end] = s[start] == s[end];
+                }
+                else 
+                {
+                    if( s[ start] == s[end] && dp[start+1][end-1])
+                    {
+                        dp[start][end]=true;
+                    }
+                    else 
+                    {
+                        dp[start][end]=false;
+                    }
+                }
+                if(dp[start][end])
+                    cnt++;
+            }
+        }
+        
+        return cnt;
+    }
+};
+
+TC - O(N*N)
+SC - O(N*N)
