@@ -1,0 +1,22 @@
+LINK - https://leetcode.com/contest/biweekly-contest-74/problems/divide-array-into-equal-pairs/
+
+
+class Solution {
+public:
+    bool divideArray(vector<int>& nums) {
+      map<int,int> mp;
+        for(int i=0;i<nums.size();i++)
+        {
+            mp[nums[i]]++;
+        }
+        for(auto x: mp)
+        {
+            if(x.second%2==1)
+                return false;
+        }
+        return true;
+    }
+};
+
+TC - O(N)
+SC - O(N)
