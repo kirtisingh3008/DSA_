@@ -1,0 +1,39 @@
+LINK - https://leetcode.com/problems/maximum-frequency-stack/
+
+class FreqStack {
+public:
+    // our aim here is to pop out the element each time which has highest frequancy
+    int maximum_freq =0;
+    unordered_map <int,int> mp;
+    unordered_map <int, stack<int>> st;
+    FreqStack() {
+    }
+    
+    void push(int val) {
+        mp[val]++; // in here i am storing the count of val;
+        maximum_freq = max(maximum_freq, mp[val]);// maximum occurance 
+        st[mp[val]].push(val); 
+    }
+    
+    int pop() {
+        int popped_element = st[maximum_freq].top();
+        st[maximum_freq].pop();
+        if( st[maximum_freq].empty())
+        {
+            maximum_freq--;
+        }
+        mp[popped_element]--;
+        return popped_element;   
+    }
+};
+
+/**
+ * Your FreqStack object will be instantiated and called as such:
+ * FreqStack* obj = new FreqStack();
+ * obj->push(val);
+ * int param_2 = obj->pop();
+ */
+ 
+ TC - O(1) // FOR PUSH AND POP OPERATIONS
+ SC - O(N) // UNORDERED MAP
+ 
