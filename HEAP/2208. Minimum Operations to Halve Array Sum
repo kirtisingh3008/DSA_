@@ -29,3 +29,6 @@ public:
         
     }
 };
+
+TC - o(N*log*N)
+SC - O(N)
