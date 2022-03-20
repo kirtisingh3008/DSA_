@@ -1,0 +1,31 @@
+LINK - https://leetcode.com/problems/minimum-operations-to-halve-array-sum/
+
+class Solution {
+public:
+    int halveArray(vector<int>& nums) {
+      int n = nums.size();
+  
+        double sum=0;
+          priority_queue<double> pq;
+        for(int i=0;i<n;i++)
+        {
+            pq.push(nums[i]);
+            sum += nums[i];
+        }
+       double  fin_sum = sum/2;
+        int cnt=0;
+        while(sum > fin_sum)
+        {
+              cnt++;
+            double x = pq.top();
+            pq.pop();
+            double p = x/2;
+            sum = sum - p;
+            pq.push(p);
+          
+        }
+        
+      return cnt;
+        
+    }
+};
