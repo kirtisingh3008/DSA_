@@ -1,0 +1,46 @@
+LINK - https://leetcode.com/contest/biweekly-contest-74/problems/minimum-white-tiles-after-covering-with-carpets/
+
+class Solution {
+public:
+    vector<vector<int>> dp;
+    int helper(string &s, int nc , int &len ,int index)
+    {
+     
+        while(index < s.size() and s[index] == '0')
+        {
+            index++;
+        }
+        if(index >= s.size())
+            return 0;
+        if(dp[index][nc]!=-1)
+            return dp[index][nc];
+        int ans = INT_MAX;
+        
+        if(nc > 0)
+            // choose it 
+        ans = min (ans ,helper(s, nc-1, len, index+len));
+            // dont so it would be left uncovered
+         ans = min(ans, helper(s, nc, len , index+1)+1);
+        return dp[index][nc]=ans;
+        
+        
+    }
+    int minimumWhiteTiles(string floor, int nc, int cl) {
+        int ans =0;
+        int n = floor.size();
+        // if the carpet avalaible is more than the floor size than no white tile will be seen 
+        if( nc * cl >= n)
+        {
+            return 0;
+        }
+        dp.resize(n+1,vector<int> (nc+1,-1));
+        return helper(floor, nc, cl,0);
+        
+        
+        
+        return ans;
+    }
+};
+
+TC - O(N*NC)
+SC - O(N*NC)
