@@ -1,0 +1,72 @@
+LINK - https://leetcode.com/problems/valid-palindrome-ii/
+
+SOLUTION -1 
+class Solution {
+public:
+    bool validPalindrome(string s) {
+        int n = s.size();
+        int dp[n+1][n+1];
+        string k=s ; 
+        reverse(s.begin(),s.end());
+        for(int i=0;i<=n;i++)
+        {
+            for(int j=0;j<=n;j++)
+            {
+                if(i==0 || j==0)
+                {
+                    dp[i][j]=0;
+                }
+                else if(s[i-1] == k[j-1])
+                {
+                    dp[i][j] = dp[i-1][j-1]+1;
+                }
+                else 
+                {
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+                }
+            }
+        }
+        if(dp[n][n]==s.size() || dp[n][n]==s.size()-1)
+            return true;
+        return false;
+    }
+};
+
+SOLUTION -2
+class Solution {
+public:
+    bool solve(int left , int right , string &s)
+    {
+        while(left < right)
+        {
+            if(s[left] == s[right])
+            {
+                left++;
+                right--;
+            }
+            else 
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    bool validPalindrome(string s) {
+        int n = s.size();
+        int left =0;
+        int right = n-1;
+        while( left < right)
+        {
+            if(s[left] == s[right])
+            {
+                left++;
+                right--;
+            }
+            else 
+            {
+                return solve(left+1, right, s) || solve(left,right-1,s);
+            }
+        }
+        return true;
+    }
+};
