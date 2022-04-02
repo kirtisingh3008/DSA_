@@ -1,0 +1,27 @@
+LINK - https://leetcode.com/problems/reverse-string/
+
+SOLUTION -1 
+class Solution {
+public:
+    void reverseString(vector<char>& s) {
+         reverse(s.begin(),s.end());  
+    }
+};
+
+TC - O(N)
+SC - O(1)
+------------------------------------------------------------------------------------------------------------------------------
+SOLUTION -2 
+class Solution {
+public:
+    void reverseString(vector<char>& s) {
+        int n = s.size();
+        for(int i=0;i<n/2;i++)
+        {
+            swap(s[i], s[n-i-1]);
+        }
+    }
+};
+
+TC - O(n/2)
+SC - o(1)
