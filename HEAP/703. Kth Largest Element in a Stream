@@ -1,0 +1,52 @@
+LINK - https://leetcode.com/problems/kth-largest-element-in-a-stream/
+
+class KthLargest {
+public:
+    priority_queue <int, vector<int>, greater<int> > pq;
+    int K;
+    KthLargest(int k, vector<int>& nums) {
+       int n = nums.size();
+        for(int i=0;i<n;i++)
+        {
+            pq.push(nums[i]);
+        }
+         int r = n- k;
+        cout<<r<<endl;
+        if(r<=0)
+        {
+            
+        }
+        else 
+        {
+            int cnt =r;
+            while(cnt>0)
+            {
+                pq.top();
+                // cout<<pq.top()<<endl;
+                pq.pop();
+                cnt--;
+            }
+        }
+        K=k;
+    }
+    
+    int add(int val) {
+        pq.push(val);
+        if(pq.size() > K)
+            pq.pop();
+        else 
+        {
+            return pq.top();
+        }
+        
+        return pq.top();
+    }
+};
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * KthLargest* obj = new KthLargest(k, nums);
+ * int param_1 = obj->add(val);
+ */
+ TC - O(N)
+ SC - O(N)
