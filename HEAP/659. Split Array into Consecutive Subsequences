@@ -1,0 +1,28 @@
+LINK - https://leetcode.com/problems/split-array-into-consecutive-subsequences/
+
+class Solution {
+public:
+    bool isPossible(vector<int>& nums) {
+        int n= nums.size();
+        int dp[n+1][n+1];
+        memset(dp,0,sizeof(dp));
+        for(int i=0;i<n-1;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                if(nums[i]+1 == nums[j])
+                {
+                    dp[i] = dp[j]+1;
+                }
+                else 
+                {
+                    dp[i]=dp[j];
+                }
+            }
+        }
+        
+    }
+};
+
+TC - O(N)
+SC - O(N)
