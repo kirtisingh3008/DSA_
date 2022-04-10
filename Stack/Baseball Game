@@ -1,0 +1,50 @@
+LINK - https://leetcode.com/problems/baseball-game/
+
+class Solution {
+public:
+    int calPoints(vector<string>& ops) {
+        int n= ops.size();
+        int ans =0;
+        stack<int> st;
+        for(auto l:ops)
+        {
+            if( l=="C")
+            {
+                //st.top();
+                st.pop();
+            }
+            else if(l=="D")
+            {
+                int k = st.top();
+               // cout<<k<<endl;
+                st.push(k*2);
+            }
+            else if(l=="+")
+            {
+                int p = st.top();
+               st.pop();
+                int q = st.top();
+              //  st.pop();
+                st.push(p);
+                //st.push(q);
+                st.push(p+q);
+            }
+            else 
+            {
+                cout<<stoi(l)<<endl;
+                st.push(stoi(l));
+            }
+        }
+        
+        while(st.empty()==false)
+        {
+            cout<<ans<<endl;
+            ans+=st.top();
+            st.pop();
+        }
+        return ans;
+    }
+};
+
+TC - O(N)
+SC - O(N)
