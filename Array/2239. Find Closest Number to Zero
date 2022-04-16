@@ -1,0 +1,48 @@
+LINK - https://leetcode.com/contest/biweekly-contest-76/problems/find-closest-number-to-zero/
+
+class Solution {
+public:
+    int findClosestNumber(vector<int>& nums) {
+       int n = nums.size();
+        int ans = INT_MAX;
+        int res =0;
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i] <0)
+            {
+                if( ans > 0-nums[i])
+                {
+                    ans = 0-nums[i];
+                   res = nums[i]; 
+                }
+                else if( ans == 0-nums[i])
+                {
+                   if( res < nums[i])
+                       res = nums[i];
+                }
+                
+            }
+            else if(nums[i]==0)
+                return 0;
+            else 
+            {
+                if( ans > nums[i]-0)
+                {
+                    ans = nums[i]-0;
+                    res = nums[i]; 
+                }
+                else if( ans == nums[i]-0)
+                {
+                    if( res < nums[i])
+                    {
+                        res = nums[i];
+                    }
+                }
+            }
+        }
+        return res;
+    }
+};
+
+TC - O(N)
+SC - O(1)
