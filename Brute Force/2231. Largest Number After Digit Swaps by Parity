@@ -1,0 +1,42 @@
+LINK - https://leetcode.com/contest/weekly-contest-288/problems/largest-number-after-digit-swaps-by-parity/
+
+class Solution {
+public:
+    int largestInteger(int num) {
+        string s = to_string(num);
+        int n = s.size();
+        for(int i=0;i<n-1;i++)
+        {
+            int curr =i;
+            if(s[curr]%2==1)
+            {
+            for(int j=i+1;j<n;j++)
+            {
+                if(s[j]%2==1 && s[curr] < s[j])
+                {
+                    curr = j;
+                }
+            }
+                swap(s[i], s[curr]);
+            }
+            else
+            {
+                for(int j=i+1;j<n;j++)
+                {
+                if(s[j]%2==0 && s[curr] < s[j])
+                {
+                    curr = j;
+                }
+                }
+                swap(s[i], s[curr]);
+            }
+        }
+        return stoi(s);
+        
+        
+        
+    }
+};
+
+TC - O(N*N)
+SC - O(1)
