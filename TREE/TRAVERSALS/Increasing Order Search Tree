@@ -1,0 +1,41 @@
+LINK - https://leetcode.com/problems/increasing-order-search-tree/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+    private:
+    void inorder(TreeNode *root, TreeNode* &curr)
+    {
+        if(root==NULL) return;
+        inorder(root->left, curr);
+        curr->right = root;
+        root->left = NULL;
+        curr=root;
+        inorder(root->right,curr);
+    }
+public:
+    TreeNode* increasingBST(TreeNode* root) {
+        if(root== NULL)
+        {
+            return root;
+        }
+        TreeNode * ans = new TreeNode(0);
+        TreeNode * curr = NULL;
+        curr = ans;
+        
+        inorder(root,curr);
+        return ans->right;
+    }
+};
+
+TC - O(N)
+SC - O(1) // IF YOU CONSIDER THE STACK SPACE THAN O(N)
