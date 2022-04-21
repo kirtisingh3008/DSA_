@@ -1,0 +1,32 @@
+LINK - https://leetcode.com/problems/design-hashset/
+
+class MyHashSet {
+public:
+    bool a[1000010] = {false};
+    MyHashSet() {
+        
+        
+    }
+    
+    void add(int key) {
+        a[key] =true;
+    }
+    
+    void remove(int key) {
+        a[key]  =false;
+    }
+    
+    bool contains(int key) {
+        return (a[key]==true ? true: false);
+    }
+};
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet* obj = new MyHashSet();
+ * obj->add(key);
+ * obj->remove(key);
+ * bool param_3 = obj->contains(key);
+ */
+ TC - O(N)
+ SC - O(N)
