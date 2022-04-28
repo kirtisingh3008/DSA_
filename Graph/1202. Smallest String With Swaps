@@ -1,0 +1,52 @@
+LINK - https://leetcode.com/problems/smallest-string-with-swaps/
+
+class Solution {
+public:
+    static const int N = 100001;
+    vector<int> adj[N];
+    bool visited[N];
+    void DFS(string &s, int vertex, vector<char>& ch , vector<int>& ind)
+    {
+        ch.push_back(s[vertex]);
+        ind.push_back(vertex);
+        visited[vertex] = true;
+        // lets traverse 
+        for(auto neighbours : adj[vertex])
+        {
+            if(visited[neighbours]==false)
+            {
+                DFS(s, neighbours, ch, ind);
+            }
+        }
+        
+    }
+    string smallestStringWithSwaps(string s, vector<vector<int>>& pairs) {
+      // lets build the graph
+        for(vector<int> edge : pairs)
+        {
+            int src = edge[0];
+            int dest = edge[1];
+            // undirected edge 
+           adj[src].push_back(dest);
+           adj[dest].push_back(src);
+        }
+        for(int vertex = 0 ; vertex < s.size();vertex++)
+        {
+            if(visited[vertex]==false)
+            {
+                vector<char> ch;
+                vector<int> indices;
+                DFS(s, vertex, ch, indices);
+                sort(ch.begin(),ch.end());
+                sort(indices.begin(),indices.end());
+                for(int i=0;i<ch.size();i++)
+                {
+                    s[indices[i]] = ch[i];
+                }
+                
+            }
+        }
+        return s;
+    }
+};
+
