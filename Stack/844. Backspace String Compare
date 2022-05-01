@@ -1,0 +1,51 @@
+LINK - https://leetcode.com/problems/backspace-string-compare/
+
+class Solution {
+public:
+    bool backspaceCompare(string s, string t) {
+        stack<char> st;
+        stack<char> st2;
+        int n = s.size();
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]!='#')
+                st.push(s[i]);
+            else 
+            {
+                if(st.empty()==false)
+                st.pop();
+            }
+        }
+        string res1;
+        while(st.empty()==false)
+        {
+            res1+=st.top();
+            st.pop();
+        }
+        
+          for(int i=0;i<t.size();i++)
+        {
+            if(t[i]!='#')
+                st2.push(t[i]);
+            else 
+            {
+                if(st2.empty()==false)
+                st2.pop();
+            }
+        }
+        string res2;
+        while(st2.empty()==false)
+        {
+            res2+=st2.top();
+            st2.pop();
+        }
+        if(res1 == res2)
+            return true;
+        return false;
+        
+        
+    }
+};
+TC - O(N)
+SC - O(N)
+-----------------------------------------------------------------------------
