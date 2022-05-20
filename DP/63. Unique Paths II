@@ -33,5 +33,5 @@ public:
     }
 };
 
-TC - O(N*M)
+TC - O(pow(2,n*m);
 SC - O(N*M)
