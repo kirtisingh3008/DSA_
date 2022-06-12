@@ -1,0 +1,43 @@
+LINK - https://leetcode.com/problems/maximum-erasure-value/
+class Solution {
+public:
+    int maximumUniqueSubarray(vector<int>& nums) {
+     unordered_map<int,int> mp;
+        int n = nums.size();
+        vector<bool> visited(10000,false);
+        int ans =0;
+        int curr_sum =0;
+        int start=0;
+        for(int i=0;i<n;i++)
+        {
+            if(visited[nums[i]]==false)
+            { 
+                curr_sum +=nums[i];
+                visited[nums[i]]=true;
+            }
+            else 
+            {
+                while(visited[nums[i]]==true)
+                {
+                 curr_sum -=nums[start];
+                  visited[nums[start]]=false;
+                  start++;
+                    
+                }
+                curr_sum +=nums[i];
+                visited[nums[i]]=true;
+            }
+                if(curr_sum > ans )
+                {
+                    ans = curr_sum;
+                }
+            
+        }
+        return ans;
+        
+        
+    }
+};
+
+TC - O(N)
+SC - 0(N)
