@@ -1,0 +1,45 @@
+LINK - https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int x) {
+        int sum=0;
+        // if sum is equal to the total number of sum of elements
+        int n= nums.size();
+        for(int i=0;i<n;i++)
+        {
+            sum+=nums[i];
+        }
+        int left_over = sum -x;
+        if(sum <x)
+        {
+            return -1;
+        }
+        int left =0;
+        int right =0;
+        int curr =0;
+        int ans =-1;
+        while(right< n)
+        {
+            curr += nums[right];
+            right++;
+            while(curr > left_over && left <=right)
+            {
+                curr -=nums[left];
+                left++;
+            }
+            if(curr == left_over)
+            {
+                ans = max(ans,right-left);
+            }
+            
+        }
+        if(ans == -1)
+        {
+            return -1;
+        }
+        return n-ans;
+    }
+};
+
+TC - O(N)
+SC - O(1)
